@@ -9,13 +9,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.TankDrive;
-import frc.robot.commands.AutoCommand;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.commands.*;
+// import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Limelight;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -28,18 +28,21 @@ public class RobotContainer {
   public final static ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
   public final static Limelight m_limelight = new Limelight("limelight");
   public final static IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
-  public final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+  // public final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   private final AutoCommand m_autoCommand = new AutoCommand();
 
   public static final OI oi = new OI();
-
+  public final Aimbot m_aimbot = new Aimbot();
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    //m_aimbot.initialize();
+
+
     // Configure the button bindings
     configureButtonBindings();
-    m_driveSubsystem.setDefaultCommand(new TankDrive());
+    // m_driveSubsystem.setDefaultCommand(new TankDrive());
   }
 
  

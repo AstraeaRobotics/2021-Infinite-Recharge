@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.networktables.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Limelight extends SubsystemBase {
   private String networktablename;
@@ -11,6 +12,8 @@ public class Limelight extends SubsystemBase {
    */
   public Limelight(String inputname) {
     networktablename = inputname;
+    SmartDashboard.putNumber("Limelight Constructed", NetworkTableInstance.getDefault().getTable(networktablename).getEntry("tl").getDouble(0));
+
   }
   //set pipeline number (0-9 configured on limelight web dashboard)
   public void setPipeline(int pipelinenumber) {

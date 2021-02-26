@@ -20,6 +20,8 @@ public class OI {
     protected Button shootButton = new JoystickButton(operatorGamepad, RobotMap.shootButton);
     Button shooterUp = new JoystickButton(operatorGamepad, 1);
     Button shooterDown = new JoystickButton(operatorGamepad, 2);
+    Button aimBot = new JoystickButton(operatorGamepad, 3);
+
     public Button rotatePanelButton = new JoystickButton(operatorGamepad, 5);
     public Button openIntake = new JoystickButton(operatorGamepad, 6);
     public Button closeIntake = new JoystickButton(operatorGamepad, 7);
@@ -33,7 +35,6 @@ public class OI {
       shootButton.whileHeld(new ShootCommand());
       shooterUp.whileHeld(new ShooterUpCommand());
       shooterDown.whileHeld(new ShooterDownCommand());
-
       rotatePanelButton.whileHeld(new SpinIntake());
         openIntake.whenPressed(new ActivateIntake());
         closeIntake.whenPressed(new CloseIntake());

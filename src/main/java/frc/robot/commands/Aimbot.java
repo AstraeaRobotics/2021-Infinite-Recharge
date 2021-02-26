@@ -17,9 +17,11 @@ public class Aimbot extends CommandBase {
      * @return
      */
     public Aimbot() {
+      SmartDashboard.putNumber("constructed Limelight ", 1);
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.m_limelight);
-    addRequirements(RobotContainer.m_driveSubsystem);
+    // addRequirements(RobotContainer.m_driveSubsystem);
 
 
   }
@@ -27,8 +29,8 @@ public class Aimbot extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    SmartDashboard.putNumber("Running Limelight - init", 1);
    RobotContainer.m_limelight.setLED("on");
-   SmartDashboard.putNumber("aimbot command",19);
     //RobotContainer.m_limelight.driverOnlyMode(false);
 
   }
@@ -66,8 +68,8 @@ public class Aimbot extends CommandBase {
       SmartDashboard.putNumber("Pivot Adjust Val", x_adjust);
       SmartDashboard.putNumber("Drive Adjust Val", y_adjust);
 
-      //drive the robot based on these motor values
-      RobotContainer.m_driveSubsystem.drive(x_adjust+y_adjust,-(x_adjust+y_adjust));
+      //drive the robot based on these motor valuesRobotContainer.m_driveSubsystem.drive(x_adjust+y_adjust,-(x_adjust+y_adjust));
+      
         
     }else{
         SmartDashboard.putBoolean("Limelight Target", false);
