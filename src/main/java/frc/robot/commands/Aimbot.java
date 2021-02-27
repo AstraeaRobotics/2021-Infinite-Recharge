@@ -17,7 +17,7 @@ public class Aimbot extends CommandBase {
      * @return
      */
     public Aimbot() {
-      SmartDashboard.putNumber("constructed Limelight ", 1);
+      SmartDashboard.putNumber("constructed aimbot ", 1);
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.m_limelight);
@@ -34,12 +34,9 @@ public class Aimbot extends CommandBase {
     //RobotContainer.m_limelight.driverOnlyMode(false);
 
   }
-
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putNumber("Running Limelight", 1);
-    
     //PID VALUES (MUST BE TUNED)
     final double kPx = -.1f;
     final double kPy = -.1f;
@@ -48,6 +45,7 @@ public class Aimbot extends CommandBase {
 
     //if a target is locked
     if (RobotContainer.m_limelight.hasTarget()) {
+      SmartDashboard.putNumber("LIMELIGHT DISTANCE", RobotContainer.m_limelight.getDistance());
       //grab data and add to smart dashboard
       SmartDashboard.putBoolean("Limelight Target", true);
       double tx = RobotContainer.m_limelight.getHorizontalOffset();

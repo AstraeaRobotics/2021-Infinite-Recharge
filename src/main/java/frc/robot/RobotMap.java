@@ -2,7 +2,7 @@ package frc.robot;
 
 public class RobotMap {
     public static int driverGamepad = 0;
-    public static int operatorGamepad = 2;
+    public static int operatorGamepad = 0;
     public static int leftStick = 0;
     public static int rightStick = 0;
     public static int shootButton = 7;

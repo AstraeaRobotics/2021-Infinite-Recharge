@@ -1,5 +1,7 @@
 package frc.robot.commands;
- 
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 //import javax.annotation.OverridingMethodsMustInvokeSuper;
  
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -10,15 +12,18 @@ import frc.robot.RobotContainer;
 public class ShootCommand extends CommandBase {
    public ShootCommand() {
        addRequirements(RobotContainer.m_ShooterSubsystem);
+       SmartDashboard.putNumber("Constructed Shoot Command", 1);
    }
  
    @Override
    public void initialize() {
+    SmartDashboard.putNumber("Initialized Shoot Command", 1);
    }
  
    @Override
    public void execute() {
-       RobotContainer.m_ShooterSubsystem.shoot();
+    SmartDashboard.putNumber("Constructed Shoot Command", 4);
+    RobotContainer.m_ShooterSubsystem.shoot();
    }
    @Override
    public boolean isFinished() {

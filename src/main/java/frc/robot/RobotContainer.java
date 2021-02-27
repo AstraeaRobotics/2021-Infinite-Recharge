@@ -32,12 +32,12 @@ public class RobotContainer {
   private final AutoCommand m_autoCommand = new AutoCommand();
 
   public static final OI oi = new OI();
-  public final Aimbot m_aimbot = new Aimbot();
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     //m_aimbot.initialize();
+    
 
 
     // Configure the button bindings

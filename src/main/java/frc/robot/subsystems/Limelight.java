@@ -133,9 +133,10 @@ public double getHorizontalSideLength() {
 }
 
 public double getDistance(){
-  double h_goal = 98.5; //Height of the goal in inches
-  double shooter_Angle = 60; //fixed shooter angle. TODO: experimentally determine this
-  double distanceLimelight = h_goal/Math.tan(shooter_Angle + getVerticalOffset());
+  double h_goal = 13; //Height of the goal in inches
+  double h_limeyboy = 5;
+  double shooter_Angle = 12.5; //fixed shooter angle. TODO: experimentally determine this
+  double distanceLimelight = (h_goal-h_limeyboy)/Math.tan(Math.toRadians(shooter_Angle + getVerticalOffset()));
   return distanceLimelight;
 }
 
