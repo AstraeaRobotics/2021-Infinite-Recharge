@@ -18,7 +18,7 @@ public class TankDrive extends CommandBase {
 
   public TankDrive() {
     // Use addRequirements() here to declare subsystem dependencies.
-    // addRequirements(RobotContainer.m_driveSubsystem);
+    addRequirements(RobotContainer.m_driveSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -29,7 +29,7 @@ public class TankDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // RobotContainer.m_driveSubsystem.drive(RobotContainer.oi.getLeftJoy().getY(), RobotContainer.oi.getRightJoy().getY());
+    RobotContainer.m_driveSubsystem.drive(RobotContainer.oi.getLeftJoy().getY(), RobotContainer.oi.getRightJoy().getY());
   }
 
   // Called once the command ends or is interrupted.

@@ -21,7 +21,7 @@ public class Aimbot extends CommandBase {
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.m_limelight);
-    // addRequirements(RobotContainer.m_driveSubsystem);
+     addRequirements(RobotContainer.m_driveSubsystem);
 
 
   }
@@ -38,10 +38,10 @@ public class Aimbot extends CommandBase {
   @Override
   public void execute() {
     //PID VALUES (MUST BE TUNED)
-    final double kPx = -.1f;
+    final double kPx = -.02f;
     final double kPy = -.1f;
     //minimum value to actually make the robot turn (at smaller values it may not turn due to friction)
-    final double min_aim_command = .05f;
+    final double min_aim_command = .16f;
 
     //if a target is locked
     if (RobotContainer.m_limelight.hasTarget()) {
@@ -56,18 +56,30 @@ public class Aimbot extends CommandBase {
       SmartDashboard.putNumber("Limelight Distance", distance);
 
       double x_adjust;
-      //on large angles, ignore the minimum aim value, on smaller angles add it to make sure the robot moves
-      if(tx>1.0){
-        x_adjust = kPx*-tx - min_aim_command;
+      // on large angles, ignore the minimum aim value, on smaller angles add it to make sure the robot moves
+      if(Math.abs(tx)>10.0){
+        SmartDashboard.putNumber("applying x adjust", 0); 
+        x_adjust = kPx*-tx;
       }else{
-        x_adjust = kPx*-tx + min_aim_command;
+        SmartDashboard.putNumber("applying x adjust", 1); 
+        if(kPx*-tx >0){
+          x_adjust = kPx*-tx + min_aim_command;
+        }else{
+          x_adjust = kPx*-tx - min_aim_command;
+        }
       }
-      double y_adjust = kPy*ty;
+      if(Math.abs(tx)<1){
+        x_adjust = 0;
+        SmartDashboard.putNumber("on target?", 1); 
+      }
+      double y_adjust = kPy * -ty;
+      //double y_adjust = 0;
       SmartDashboard.putNumber("Pivot Adjust Val", x_adjust);
       SmartDashboard.putNumber("Drive Adjust Val", y_adjust);
 
-      //drive the robot based on these motor valuesRobotContainer.m_driveSubsystem.drive(x_adjust+y_adjust,-(x_adjust+y_adjust));
-      
+      //drive the robot based on these motor values
+      RobotContainer.m_driveSubsystem.drive(x_adjust+y_adjust,-(x_adjust-y_adjust));
+     // RobotContainer.m_driveSubsystem.drive(0,min_aim_command); 
         
     }else{
         SmartDashboard.putBoolean("Limelight Target", false);

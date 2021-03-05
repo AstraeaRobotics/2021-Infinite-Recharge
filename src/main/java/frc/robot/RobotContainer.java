@@ -10,7 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.*;
-// import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,11 +25,11 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  public final static ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
+  //public final static ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
   public final static Limelight m_limelight = new Limelight("limelight");
-  public final static IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
-  // public final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  private final AutoCommand m_autoCommand = new AutoCommand();
+  //public final static IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
+  public final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+  // private final AutoCommand m_autoCommand = new AutoCommand();
 
   public static final OI oi = new OI();
   /**
@@ -42,7 +42,7 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
-    // m_driveSubsystem.setDefaultCommand(new TankDrive());
+    m_driveSubsystem.setDefaultCommand(new TankDrive());
   }
 
  
@@ -63,6 +63,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
   }
 }

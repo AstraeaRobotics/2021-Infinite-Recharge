@@ -18,26 +18,25 @@ public class DriveSubsystem extends SubsystemBase {
    * Creates a new DriveSubsystem.
    */
 
-  CANSparkMax leftF;
-  CANSparkMax leftM;
-  CANSparkMax leftB;
-  CANSparkMax rightF;
-  CANSparkMax rightM;
+  CANSparkMax left1;
+  CANSparkMax left2;
+  CANSparkMax right1;
+  CANSparkMax right2;
   //CANSparkMax rightB;
 
   DifferentialDrive drive;
 
   public DriveSubsystem() {
-    leftF = new CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless);
-    leftM = new CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushless);
-    leftB = new CANSparkMax(3, CANSparkMaxLowLevel.MotorType.kBrushless);
-    rightF = new CANSparkMax(4, CANSparkMaxLowLevel.MotorType.kBrushless);
-    rightM = new CANSparkMax(5, CANSparkMaxLowLevel.MotorType.kBrushless);
+    right1 = new CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless);
+    right2 = new CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushless);
+    left1 = new CANSparkMax(3, CANSparkMaxLowLevel.MotorType.kBrushless);
+    left2 = new CANSparkMax(4, CANSparkMaxLowLevel.MotorType.kBrushless);
+    // rightM = new CANSparkMax(5, CANSparkMaxLowLevel.MotorType.kBrushless);
     //rightB = new CANSparkMax(6, CANSparkMaxLowLevel.MotorType.kBrushless);
 
-    leftM.follow(leftF);
-    leftB.follow(leftF);
-    rightM.follow(rightF);
+    left2.follow(left1);
+    // leftB.follow(leftF);
+    right2.follow(right1);
     //rightB.follow(rightF);
 
     /* OR:
@@ -47,13 +46,14 @@ public class DriveSubsystem extends SubsystemBase {
 
     */
 
-    leftF.getEncoder().setPosition(0.0);
-    rightF.getEncoder().setPosition(0.0);
+    left1.getEncoder().setPosition(0.0);
+    right1.getEncoder().setPosition(0.0);
 
-    drive = new DifferentialDrive(leftF, rightF);
+    drive = new DifferentialDrive(left1, right1);
   }
 
   public void drive(double left, double right) {
+    System.out.println("left: "+left+" right: "+right);
     drive.tankDrive(left, right);
   }
 

@@ -35,13 +35,13 @@ public class OI {
 
     public OI() {
       SmartDashboard.putNumber("constructed OI ", 1);
-      shootButton.whileHeld(new ShootCommand());
-      shooterUp.whileHeld(new ShooterUpCommand());
-      shooterDown.whileHeld(new ShooterDownCommand());
-      rotatePanelButton.whileHeld(new SpinIntake());
-      openIntake.whenPressed(new ActivateIntake());
-      closeIntake.whenPressed(new CloseIntake());
-      aimBot.whileHeld(new Aimbot());
+      // shootButton.whileHeld(new ShootCommand());
+      // shooterUp.whileHeld(new ShooterUpCommand());
+      // shooterDown.whileHeld(new ShooterDownCommand());
+      // rotatePanelButton.whileHeld(new SpinIntake());
+      // openIntake.whenPressed(new ActivateIntake());
+      // closeIntake.whenPressed(new CloseIntake());
+       aimBot.whileHeld(new Aimbot());
       //public Joystick ps4_controller = new Joystick(RobotMap.PS4_CONTROLLER_PORT);
       //public JoystickButton rotatePanelButton = new JoystickButton(ps4_controller, 11);
       //public JoystickButton findColorButton = new JoystickButton(ps4_controller, 12);
