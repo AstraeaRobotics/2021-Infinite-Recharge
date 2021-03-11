@@ -1,8 +1,6 @@
 /*
- ____  ____  __  _  _  ____  ____  _  _  ____  ____  _  _  ____  ____  ____  _  _ 
-(    \(  _ \(  )/ )( \(  __)/ ___)/ )( \(  _ \/ ___)( \/ )/ ___)(_  _)(  __)( \/ )
- ) D ( )   / )( \ \/ / ) _) \___ \) \/ ( ) _ (\___ \ )  / \___ \  )(   ) _) / \/ \
-(____/(__\_)(__) \__/ (____)(____/\____/(____/(____/(__/  (____/ (__) (____)\_)(_/*/
+
+*/
 
 package frc.robot.subsystems;
 
@@ -12,7 +10,12 @@ import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class DriveSubsystem extends SubsystemBase {
+public class DrivePID extends SubsystemBase {
+
+	double kP = .5;
+	//double kI = 1;
+	//double kD = 1;
+	double straightTolerance = .1;
 
 	CANSparkMax left1;
 	CANSparkMax left2;
@@ -22,7 +25,7 @@ public class DriveSubsystem extends SubsystemBase {
 
 	DifferentialDrive drive;
 
-	public DriveSubsystem() {
+	public DrivePID() {
 		right1 = new CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless);
 		right2 = new CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushless);
 		left1 = new CANSparkMax(3, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -34,14 +37,8 @@ public class DriveSubsystem extends SubsystemBase {
 		// leftB.follow(leftF);
 		right2.follow(right1);
 		// rightB.follow(rightF);
-	
-		/*
-		 * OR:
-		 * 
-		 * SpeedControllerGroup(leftF, leftM, leftB) SpeedControllerGroup(rightF,
-		 * rightM, rightB)
-		 * 
-		 */
+	leftencoder = new CANEncoder(left1);
+		rightencoder = new CANEncoder(right1);
 
 		left1.getEncoder().setPosition(0.0);
 		right1.getEncoder().setPosition(0.0);
@@ -50,8 +47,14 @@ public class DriveSubsystem extends SubsystemBase {
 	}
 
 	public void drive(double left, double right) {
-		System.out.println("left: " + left + " right: " + right);
-		drive.tankDrive(left, right);
+		double diff = Math.abs(left-right);
+		if(diff< straightTolerance){
+			//assume driver wants to drive straught
+			double error = rightencoder.getVelocity()-leftencoder.getVelocity();
+			double pivotAdjust = kP*error;
+		}
+		System.out.println("left: " + (left+pivotAdjust) + " right: " + (right-pivotAdjust));
+		drive.tankDrive(left+pivotAdjust, right-pivotAdjust);
 	}
 
 	@Override

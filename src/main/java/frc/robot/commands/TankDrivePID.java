@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-public class TankDrive extends CommandBase {
+public class TankDrivePID extends CommandBase {
 
-  public TankDrive() {
-    addRequirements(RobotContainer.m_driveSubsystem);
+  public TankDrivePID() {
+    addRequirements(RobotContainer.m_driveSubsystemPID);
   }
 
   @Override
@@ -23,7 +23,7 @@ public class TankDrive extends CommandBase {
 
   @Override
   public void execute() {
-    RobotContainer.m_driveSubsystem.drive(RobotContainer.getLeftJoy().getY(), RobotContainer.getRightJoy().getY());
+    RobotContainer.m_driveSubsystemPID.drive(RobotContainer.getLeftJoy().getY(), RobotContainer.getRightJoy().getY());
   }
 
   @Override

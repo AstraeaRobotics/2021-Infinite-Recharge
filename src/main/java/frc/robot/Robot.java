@@ -6,7 +6,6 @@
 
 package frc.robot;
 
-import frc.robot.OI;
 // import frc.robot.commands.TankDrive;
 
 import com.revrobotics.CANSparkMax;
@@ -28,7 +27,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    OI oi = new OI();
     m_robotContainer = new RobotContainer();
     
   }
