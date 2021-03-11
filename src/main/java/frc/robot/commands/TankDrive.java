@@ -1,9 +1,9 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+/*
+__  __   __ _  __ _  ____  ____  __  _  _  ____ 
+(_  _)/ _\ (  ( \(  / )(    \(  _ \(  )/ )( \(  __)
+  )( /    \/    / )  (  ) D ( )   / )( \ \/ / ) _) 
+ (__)\_/\_/\_)__)(__\_)(____/(__\_)(__) \__/ (____)
+ */
 
 package frc.robot.commands;
 
@@ -12,32 +12,25 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 public class TankDrive extends CommandBase {
-  /**
-   * Creates a new TankDrive
-   */
+
 
   public TankDrive() {
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.m_driveSubsystem);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.m_driveSubsystem.drive(RobotContainer.oi.getLeftJoy().getY(), RobotContainer.oi.getRightJoy().getY());
+    RobotContainer.m_driveSubsystem.drive(RobotContainer.getLeftJoy().getY(), RobotContainer.getRightJoy().getY());
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

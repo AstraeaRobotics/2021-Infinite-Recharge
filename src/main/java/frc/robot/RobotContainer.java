@@ -1,10 +1,8 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018-2019 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
+/*
+ ____   __  ____   __  ____     ___  __   __ _  ____  __   __  __ _  ____  ____ 
+(  _ \ /  \(  _ \ /  \(_  _)   / __)/  \ (  ( \(_  _)/ _\ (  )(  ( \(  __)(  _ \
+ )   /(  O )) _ ((  O ) )(    ( (__(  O )/    /  )( /    \ )( /    / ) _)  )   /
+(__\_) \__/(____/ \__/ (__)    \___)\__/ \_)__) (__)\_/\_/(__)\_)__)(____)(__\_)*/
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
@@ -16,53 +14,66 @@ import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Limelight;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.button.*;
+import frc.robot.commands.*;
 
-/**
- * This class is where the bulk of the robot should be declared.  Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
- * (including subsystems, commands, and button mappings) should be declared here.
- */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  //public final static ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
-  public final static Limelight m_limelight = new Limelight("limelight");
-  //public final static IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
-  public final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  // private final AutoCommand m_autoCommand = new AutoCommand();
+	/*
+	 * OI
+	 */
 
-  public static final OI oi = new OI();
-  /**
-   * The container for the robot.  Contains subsystems, OI devices, and commands.
-   */
-  public RobotContainer() {
-    //m_aimbot.initialize();
-    
+	public static Joystick rightJoy = new Joystick(0);
+	public static Joystick leftJoy = new Joystick(1);
 
+	/*
+	 * Subsystems
+	 */
 
-    // Configure the button bindings
-    configureButtonBindings();
-    m_driveSubsystem.setDefaultCommand(new TankDrive());
-  }
+	// public final static ShooterSubsystem m_ShooterSubsystem = new
+	// ShooterSubsystem();
+	public final static Limelight m_limelight = new Limelight("limelight");
+	// public final static IntakeSubsystem m_IntakeSubsystem = new
+	// IntakeSubsystem();
+	public final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
 
- 
-  /**
-   * Use this method to define your button->command mappings.  Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
-  private void configureButtonBindings() {
-  }
+	/*
+	 * Commands
+	 */
 
+	// private final AutoCommand m_autoCommand = new AutoCommand();
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return null;
-  }
+	public RobotContainer() {
+		configureButtonBindings();
+		m_driveSubsystem.setDefaultCommand(new TankDrive());
+	}
+
+	public static Joystick getRightJoy() {
+		return rightJoy;
+	}
+
+	public static Joystick getLeftJoy() {
+		return leftJoy;
+	}
+
+	private void configureButtonBindings() {
+		GenericHID operatorGamepad = new Joystick(RobotMap.operatorGamepad);
+		Button shootButton = new JoystickButton(operatorGamepad, RobotMap.shootButton);
+		Button shooterUp = new JoystickButton(operatorGamepad, 1);
+		Button shooterDown = new JoystickButton(operatorGamepad, 2);
+		Button aimBot = new JoystickButton(operatorGamepad, 3);
+		Button rotatePanelButton = new JoystickButton(operatorGamepad, 5);
+		Button openIntake = new JoystickButton(operatorGamepad, 6);
+		Button closeIntake = new JoystickButton(operatorGamepad, 7);
+
+		// public GenericHID getRightJoystick(){ return operatorGamepad; }
+		// public double readRightForwardAxis() { return rightJoystick.getY();}
+
+	}
+
+	public Command getAutonomousCommand() {
+		return null;
+	}
 }
