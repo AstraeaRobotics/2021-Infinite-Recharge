@@ -6,59 +6,59 @@
 */
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel;
 //import edu.wpi.first.wpilibj.command.Command;
 //import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.OI;
 import frc.robot.RobotMap;
+import frc.robot.Constants;
 
-//import com.ctre.phoenix.motorcontrol.ControlMode;
-//import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
+import com.revrobotics.ControlType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+ 
 public class ShooterSubsystem extends SubsystemBase {
-	public static ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
+  public static ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
+  
+  private CANSparkMax leftMotor = new CANSparkMax(RobotMap.SHOOTER_MOTOR_LEFT, CANSparkMaxLowLevel.MotorType.kBrushless);
+  private CANPIDController leftPidController = leftMotor.getPIDController();
+  private CANEncoder leftEncoder = leftMotor.getEncoder();
 
-	private OI m_oi;
-	// TalonSRX neo = new TalonSRX(1);
-	// TalonSRX topMotor = new TalonSRX(7);
-	// TalonSRX bottomMotor = new TalonSRX(8);
-	CANSparkMax neo = new CANSparkMax(RobotMap.shooterAngleMotor, CANSparkMaxLowLevel.MotorType.kBrushless);
-	CANSparkMax topMotor = new CANSparkMax(RobotMap.topMotor, CANSparkMaxLowLevel.MotorType.kBrushless);
-	CANSparkMax bottomMotor = new CANSparkMax(RobotMap.bottomMotor, CANSparkMaxLowLevel.MotorType.kBrushless);
+  private CANSparkMax rightMotor = new CANSparkMax(RobotMap.SHOOTER_MOTOR_RIGHT, CANSparkMaxLowLevel.MotorType.kBrushless);
+  private CANPIDController rightPidController = rightMotor.getPIDController();
+  private CANEncoder rightEncoder = rightMotor.getEncoder();
+  
+  public ShooterSubsystem() {
+    leftPidController.setP(Constants.shooterConstants.kP);
+    leftPidController.setI(Constants.shooterConstants.kI);
+    leftPidController.setD(Constants.shooterConstants.kD);
+    leftPidController.setIZone(Constants.shooterConstants.kIz);
+    leftPidController.setFF(Constants.shooterConstants.kFF);
+    leftPidController.setOutputRange(Constants.shooterConstants.kMinOutput, Constants.shooterConstants.kMaxOutput);
 
-	public void shooterUp() {
-		neo.set(.1);
+    rightPidController.setP(Constants.shooterConstants.kP);
+    rightPidController.setI(Constants.shooterConstants.kI);
+    rightPidController.setD(Constants.shooterConstants.kD);
+    rightPidController.setIZone(Constants.shooterConstants.kIz);
+    rightPidController.setFF(Constants.shooterConstants.kFF);
+    rightPidController.setOutputRange(Constants.shooterConstants.kMinOutput, Constants.shooterConstants.kMaxOutput);
+  }
+	public void debug(){
+    SmartDashboard.putNumber("P Gain", Constants.shooterConstants.kP);
+    SmartDashboard.putNumber("I Gain", Constants.shooterConstants.kI);
+    SmartDashboard.putNumber("D Gain", Constants.shooterConstants.kD);
+    SmartDashboard.putNumber("I Zone", Constants.shooterConstants.kIz);
+    SmartDashboard.putNumber("Feed Forward", Constants.shooterConstants.kFF);
+    SmartDashboard.putNumber("Max Output", Constants.shooterConstants.kMinOutput);
+    SmartDashboard.putNumber("Min Output", Constants.shooterConstants.kMaxOutput);
+    SmartDashboard.putNumber("Setpoint", Constants.shooterConstants.velocity);
 	}
-
-	public void shooterDown() {
-		neo.set(-.1);
-	}
-
-	public void shoot() {
-		// top motor counterclockwise, bottom motor clockwise @ full speed
-		topMotor.set(1);
-		bottomMotor.set(-1);
-	}
-
-	public void setNeoSpeed(double speed) {
-		neo.set(speed);
-	}
-
-	public void setTopMotorSpeed(double speed) {
-		topMotor.set(speed);
-	}
-
-	public void setBottomMotorSpeed(double speed) {
-		bottomMotor.set(speed);
-	}
-
-	// @Override
-	// default void setDefaultCommand(Command defaultCommand){
-	// // set the default command
-	// // setDefaultCommand (new mySpecialCommand());
-	// CommandScheduler.getInstance().setDefaultCommand(this, defaultCommand);
-	// }
-
+  public void shoot() {
+    leftPidController.setReference(Constants.shooterConstants.velocity, ControlType.kVelocity);
+    rightPidController.setReference(-Constants.shooterConstants.velocity, ControlType.kVelocity); // negative b/c reverse
+  }
 }
+

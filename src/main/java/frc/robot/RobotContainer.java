@@ -32,12 +32,12 @@ public class RobotContainer {
 	 * Subsystems
 	 */
 
-	// public final static ShooterSubsystem m_ShooterSubsystem = new
-	// ShooterSubsystem();
+
 	public final static Limelight m_limelight = new Limelight("limelight");
 	// public final static IntakeSubsystem m_IntakeSubsystem = new
 	// IntakeSubsystem();
 	public final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+  public final static ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
 
 	/*
 	 * Commands
@@ -60,13 +60,11 @@ public class RobotContainer {
 
 	private void configureButtonBindings() {
 		GenericHID operatorGamepad = new Joystick(RobotMap.operatorGamepad);
-		Button shootButton = new JoystickButton(operatorGamepad, RobotMap.shootButton);
-		Button shooterUp = new JoystickButton(operatorGamepad, 1);
-		Button shooterDown = new JoystickButton(operatorGamepad, 2);
 		Button aimBot = new JoystickButton(operatorGamepad, 3);
 		Button rotatePanelButton = new JoystickButton(operatorGamepad, 5);
 		Button openIntake = new JoystickButton(operatorGamepad, 6);
 		Button closeIntake = new JoystickButton(operatorGamepad, 7);
+    Button shootButton = new JoystickButton(operatorGamepad, RobotMap.SHOOT_BUTTON);
 
 		// public GenericHID getRightJoystick(){ return operatorGamepad; }
 		// public double readRightForwardAxis() { return rightJoystick.getY();}

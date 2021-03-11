@@ -10,9 +10,8 @@ public class RobotMap {
 	public static int operatorGamepad = 2;
 	public static int leftStick = 0;
 	public static int rightStick = 0;
-	public static int shootButton = 7;
+	public static int SHOOT_BUTTON = 0;
 	public static int intakeMotor = 0;
-	public static int shooterAngleMotor = 10;
 	public static int topMotor = 11;
 	public static int bottomMotor = 12;
 
@@ -26,4 +25,6 @@ public class RobotMap {
 	public static final int SOLENOID1_REVERSE_CHANNEL = 5;
 	public static final int SOLENOID2_FORWARD_CHANNEL = 6;
 	public static final int SOLENOID2_REVERSE_CHANNEL = 7;
+  public static int SHOOTER_MOTOR_LEFT = 0;
+  public static int SHOOTER_MOTOR_RIGHT = 1;
 }
