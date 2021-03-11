@@ -52,9 +52,14 @@ public class DrivePID extends SubsystemBase {
 			//assume driver wants to drive straught
 			double error = rightencoder.getVelocity()-leftencoder.getVelocity();
 			double pivotAdjust = kP*error;
+			//if the joystick falls within this tolerance we'll just take the average value of the two joysticks and apply to both sides
+			double averageforward = (left+right)/2;
+		System.out.println("left: " + (averageforward+pivotAdjust) + " right: " + (averageforward-pivotAdjust));
+		drive.tankDrive(averageforward+pivotAdjust, averageforward-pivotAdjust);
+		}else{
+			drive.tankDrive(left,right);
 		}
-		System.out.println("left: " + (left+pivotAdjust) + " right: " + (right-pivotAdjust));
-		drive.tankDrive(left+pivotAdjust, right-pivotAdjust);
+
 	}
 
 	@Override
