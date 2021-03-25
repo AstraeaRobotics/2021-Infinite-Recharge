@@ -7,18 +7,15 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.*;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Limelight;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.*;
+
 import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 
 public class RobotContainer {
   /*
@@ -36,7 +33,7 @@ public class RobotContainer {
   public final static Limelight m_limelight = new Limelight("limelight");
   public final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   public final static ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
-  public final static IndexerSubsystem m_IndexerSubsystem = new IndexerSubsystem();
+  public final static Indexer m_IndexerSubsystem = new Indexer();
 
   /*
    * Commands

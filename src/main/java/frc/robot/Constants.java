@@ -31,5 +31,5 @@ public class Constants {
     public static final double velocity = 5700;
   }
 
-  public static final int indexerSpeed = .3;
+  public static final double indexerSpeed = .3;
 }
