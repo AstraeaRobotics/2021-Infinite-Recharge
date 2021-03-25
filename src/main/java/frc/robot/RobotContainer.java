@@ -7,18 +7,15 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.*;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Limelight;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.*;
+
 import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 
 public class RobotContainer {
   /*
@@ -36,6 +33,7 @@ public class RobotContainer {
   public final static Limelight m_limelight = new Limelight("limelight");
   public final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   public final static ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
+  public final static Intake m_IntakeSubsystem = new Intake();
 
   /*
    * Commands
@@ -54,6 +52,8 @@ public class RobotContainer {
 	Button closeIntake = new JoystickButton(operatorGamepad, 7);
   Button shootButton = new JoystickButton(operatorGamepad, RobotMap.SHOOT_BUTTON);
 
+  Button intakeButton = new JoystickButton(operatorGamepad, RobotMap.INTAKE_BUTTON);
+
 
   public RobotContainer() {
 	  configureButtonBindings();
@@ -70,6 +70,7 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     shootButton.whileHeld(new ShootCommand());
+    intakeButton.whileHeld(new IntakeBall());
   }
 
   public Command getAutonomousCommand() {

@@ -14,10 +14,6 @@ public class Constants {
 
 	final static public int driveSpeed = 1;
 	final static public int shooterMode = 0; // mode 0: low shooter | mode 1: high shooter
-
-	final static public double intakeSpeed = 1;
-
-	final static public double deadzone = 0.3;
   
   public class shooterConstants  {
     public static final double kP = 6e-5;
@@ -30,4 +26,7 @@ public class Constants {
     public static final double maxRPM = 5700;
     public static final double velocity = 5700;
   }
+
+  
+  public static final double intakeSpeed = .8;
 }
