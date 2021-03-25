@@ -21,57 +21,58 @@ import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.commands.*;
 
 public class RobotContainer {
-	/*
-	 * OI
-	 */
+  /*
+   * OI
+   */
 
-	public static Joystick rightJoy = new Joystick(0);
-	public static Joystick leftJoy = new Joystick(1);
+  public static Joystick rightJoy = new Joystick(0);
+  public static Joystick leftJoy = new Joystick(1);
 
-	/*
-	 * Subsystems
-	 */
+  /*
+   * Subsystems
+   */
 
 
-	public final static Limelight m_limelight = new Limelight("limelight");
-	// public final static IntakeSubsystem m_IntakeSubsystem = new
-	// IntakeSubsystem();
-	public final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+  public final static Limelight m_limelight = new Limelight("limelight");
+  public final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   public final static ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
 
-	/*
-	 * Commands
-	 */
+  /*
+   * Commands
+   */
 
 	// private final AutoCommand m_autoCommand = new AutoCommand();
 
-	public RobotContainer() {
-		configureButtonBindings();
-		m_driveSubsystem.setDefaultCommand(new TankDrive());
-	}
+  /**
+   * Buttons
+   */
+  
+  GenericHID operatorGamepad = new Joystick(RobotMap.operatorGamepad);
+	Button aimBot = new JoystickButton(operatorGamepad, 3);
+	Button rotatePanelButton = new JoystickButton(operatorGamepad, 5);
+	Button openIntake = new JoystickButton(operatorGamepad, 6);
+	Button closeIntake = new JoystickButton(operatorGamepad, 7);
+  Button shootButton = new JoystickButton(operatorGamepad, RobotMap.SHOOT_BUTTON);
 
-	public static Joystick getRightJoy() {
-		return rightJoy;
-	}
 
-	public static Joystick getLeftJoy() {
-		return leftJoy;
-	}
+  public RobotContainer() {
+	  configureButtonBindings();
+	  m_driveSubsystem.setDefaultCommand(new TankDrive());
+  }
 
-	private void configureButtonBindings() {
-		GenericHID operatorGamepad = new Joystick(RobotMap.operatorGamepad);
-		Button aimBot = new JoystickButton(operatorGamepad, 3);
-		Button rotatePanelButton = new JoystickButton(operatorGamepad, 5);
-		Button openIntake = new JoystickButton(operatorGamepad, 6);
-		Button closeIntake = new JoystickButton(operatorGamepad, 7);
-    Button shootButton = new JoystickButton(operatorGamepad, RobotMap.SHOOT_BUTTON);
+  public static Joystick getRightJoy() {
+	  return rightJoy;
+  }
 
-		// public GenericHID getRightJoystick(){ return operatorGamepad; }
-		// public double readRightForwardAxis() { return rightJoystick.getY();}
+  public static Joystick getLeftJoy() {
+	  return leftJoy;
+  }
 
-	}
+  private void configureButtonBindings() {
+    shootButton.whileHeld(new ShootCommand());
+  }
 
-	public Command getAutonomousCommand() {
-		return null;
-	}
+  public Command getAutonomousCommand() {
+	  return null;
+  }
 }

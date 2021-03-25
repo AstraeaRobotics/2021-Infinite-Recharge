@@ -15,28 +15,28 @@ import frc.robot.RobotContainer;
  
  
 public class ShootCommand extends CommandBase {
-   public ShootCommand() {
-       addRequirements(RobotContainer.m_ShooterSubsystem);
-   }
+  public ShootCommand() {
+   addRequirements(RobotContainer.m_ShooterSubsystem);
+  }
+ 
+  @Override
+  public void initialize() {
+  }
  
    @Override
-   public void initialize() {
-   }
- 
-   @Override
-   public void execute() {
-       RobotContainer.m_ShooterSubsystem.shoot();
-   }
-   @Override
-   public boolean isFinished() {
-       return false;
-   }
-   @Override
-   public void end(boolean interrupted) {
-       if(interrupted) {
-         /*  RobotContainer.m_ShooterSubsystem.setTopMotorSpeed(0);   
-           RobotContainer.m_ShooterSubsystem.setBottomMotorSpeed(0);*/
-       }
-   }
-      
+  public void execute() {
+    RobotContainer.m_ShooterSubsystem.shoot();
+  }
+
+  @Override
+  public boolean isFinished() {
+    return false;
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    if(interrupted) {
+      RobotContainer.m_ShooterSubsystem.setSpeed(0);
+    }
+  }     
 }

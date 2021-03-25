@@ -32,6 +32,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private CANEncoder rightEncoder = rightMotor.getEncoder();
   
   public ShooterSubsystem() {
+    System.out.println("Shooter Constructor");
     leftPidController.setP(Constants.shooterConstants.kP);
     leftPidController.setI(Constants.shooterConstants.kI);
     leftPidController.setD(Constants.shooterConstants.kD);
@@ -55,10 +56,20 @@ public class ShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Max Output", Constants.shooterConstants.kMinOutput);
     SmartDashboard.putNumber("Min Output", Constants.shooterConstants.kMaxOutput);
     SmartDashboard.putNumber("Setpoint", Constants.shooterConstants.velocity);
+    SmartDashboard.putNumber("RightVelocity", rightEncoder.getVelocity());
+    SmartDashboard.putNumber("LeftVelocity", leftEncoder.getVelocity());
 	}
   public void shoot() {
+    System.out.println("shoot :D");
+    debug();
+
     leftPidController.setReference(Constants.shooterConstants.velocity, ControlType.kVelocity);
     rightPidController.setReference(-Constants.shooterConstants.velocity, ControlType.kVelocity); // negative b/c reverse
+  }
+
+  public void setSpeed(double speed) {
+    leftMotor.set(speed);
+    rightMotor.set(-speed);
   }
 }
 

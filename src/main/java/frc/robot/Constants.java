@@ -18,7 +18,8 @@ public class Constants {
 	final static public double intakeSpeed = 1;
 
 	final static public double deadzone = 0.3;
-public class shooterConstants  {
+  
+  public class shooterConstants  {
     public static final double kP = 6e-5;
     public static final double kI = 0;
     public static final double kD = 0.00001; 
@@ -27,6 +28,6 @@ public class shooterConstants  {
     public static final double kMaxOutput = 1; 
     public static final double kMinOutput = -1;
     public static final double maxRPM = 5700;
-    public static final double velocity = 1000;
+    public static final double velocity = 5700;
   }
 }
