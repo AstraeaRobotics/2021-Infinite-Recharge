@@ -7,9 +7,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.RobotContainer;
+import frc.robot.Constants;
 
 public class Aimbot extends CommandBase {
 
@@ -52,7 +53,7 @@ public class Aimbot extends CommandBase {
 			double x_adjust;
 			// on large angles, ignore the minimum aim value, on smaller angles add it to
 			// make sure the robot moves
-			if (Math.abs(tx) > 10.0) {
+			if (Math.abs(tx) > Constants.visionConstants.largeAngleThreshold) {
 				SmartDashboard.putNumber("applying x adjust", 0);
 				x_adjust = kPx * -tx;
 			} else {
@@ -63,7 +64,7 @@ public class Aimbot extends CommandBase {
 					x_adjust = kPx * -tx - min_aim_command;
 				}
 			}
-			if (Math.abs(tx) < 1) {
+			if (Math.abs(tx) < Constants.visionConstants.smallAngleThreshold) {
 				x_adjust = 0;
 				SmartDashboard.putNumber("on target?", 1);
 			}

@@ -15,7 +15,7 @@ public class Constants {
 	final static public int driveSpeed = 1;
 	final static public int shooterMode = 0; // mode 0: low shooter | mode 1: high shooter
   
-  public class shooterConstants  {
+  public static class shooterConstants  {
     public static final double kP = 6e-5;
     public static final double kI = 0;
     public static final double kD = 0.00001; 
@@ -25,5 +25,13 @@ public class Constants {
     public static final double kMinOutput = -1;
     public static final double maxRPM = 5700;
     public static final double velocity = 5700;
+  }
+
+  public static class visionConstants {
+    public static double h_goal = 13; // Height of the goal in inches
+		public static double h_limeyboy = 5;
+		public static double shooter_Angle = 12.5; // fixed shooter angle. TODO: experimentally determine this
+    public static double largeAngleThreshold = 10.0;
+    public static double smallAngleThreshold = 1.0;
   }
 }

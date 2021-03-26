@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import frc.robot.Constants;
+
 public class Limelight extends SubsystemBase {
 
 	private String networkTableName;
@@ -144,11 +146,7 @@ public class Limelight extends SubsystemBase {
 	}
 
 	public double getDistance() {
-		double h_goal = 13; // Height of the goal in inches
-		double h_limeyboy = 5;
-		double shooter_Angle = 12.5; // fixed shooter angle. TODO: experimentally determine this
-		double distanceLimelight = (h_goal - h_limeyboy) / Math.tan(Math.toRadians(shooter_Angle + getVerticalOffset()));
-		return distanceLimelight;
+		return (Constants.visionConstants.h_goal - Constants.visionConstants.h_limeyboy) / Math.tan(Math.toRadians(Constants.visionConstants.shooter_Angle + getVerticalOffset()));
 	}
 
 }
