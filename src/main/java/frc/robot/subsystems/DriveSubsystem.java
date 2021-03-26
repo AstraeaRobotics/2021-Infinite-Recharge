@@ -184,6 +184,9 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("turn rate", getTurnRate());
     SmartDashboard.putString("wheel speeds", getWheelSpeeds().toString());
     SmartDashboard.putString("robot pose",m_odometry.getPoseMeters().toString());
+
+	SmartDashboard.putNumber("x", getPose().getTranslation().getX());
+	SmartDashboard.putNumber("y", getPose().getTranslation().getY());
   }
 
   /*
