@@ -5,20 +5,15 @@
 (__\_) \__/(____/ \__/ (__)    \___)\__/ \_)__) (__)\_/\_/(__)\_)__)(____)(__\_)*/
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.*;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Limelight;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.*;
+
 import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 
 public class RobotContainer {
   /*
@@ -49,9 +44,6 @@ public class RobotContainer {
   
   GenericHID operatorGamepad = new Joystick(RobotMap.operatorGamepad);
 	Button aimBot = new JoystickButton(operatorGamepad, 3);
-	Button rotatePanelButton = new JoystickButton(operatorGamepad, 5);
-	Button openIntake = new JoystickButton(operatorGamepad, 6);
-	Button closeIntake = new JoystickButton(operatorGamepad, 7);
   Button shootButton = new JoystickButton(operatorGamepad, RobotMap.SHOOT_BUTTON);
 
 
