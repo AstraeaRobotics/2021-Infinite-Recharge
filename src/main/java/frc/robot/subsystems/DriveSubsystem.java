@@ -29,6 +29,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import frc.robot.Constants.DriveConstants;
 
+
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+
 import com.kauailabs.navx.frc.AHRS;
 
 public class DriveSubsystem extends SubsystemBase {
@@ -45,7 +48,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     CANEncoder leftEncoder;
     CANEncoder rightEncoder;
-    private final Field2d m_field = new Field2d();
+    Field2d m_field = new Field2d();
 
 	public DriveSubsystem() {
 		right1 = new CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless);
