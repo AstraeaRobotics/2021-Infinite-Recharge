@@ -45,6 +45,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     CANEncoder leftEncoder;
     CANEncoder rightEncoder;
+    private final Field2d m_field = new Field2d();
 
 	public DriveSubsystem() {
 		right1 = new CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -62,7 +63,7 @@ public class DriveSubsystem extends SubsystemBase {
 
 		drive = new DifferentialDrive(left1, right1);
 		m_odometry = new DifferentialDriveOdometry(getHeading());
-
+    
 		resetEncoders();
 		zeroHeading();
 
@@ -77,6 +78,7 @@ public class DriveSubsystem extends SubsystemBase {
   public void periodic() {
     m_odometry.update(getHeading(), leftEncoder.getPosition(), rightEncoder.getPosition());
 	logData();
+  m_field.setRobotPose(m_odometry.getPoseMeters());
   }
 
   public void drive(double left, double right) {
@@ -177,6 +179,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void logData() {
+    SmartDashboard.putData("Field", m_field);
     SmartDashboard.putNumber("heading", getHeading().getDegrees());
     SmartDashboard.putNumber("turn rate", getTurnRate());
     SmartDashboard.putString("wheel speeds", getWheelSpeeds().toString());
