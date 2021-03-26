@@ -7,6 +7,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 
 public class Constants {
 	public static Joystick leftDriveStick = new Joystick(0);
@@ -30,4 +31,35 @@ public class Constants {
     public static final double maxRPM = 5700;
     public static final double velocity = 5700;
   }
+
+  public static final class DriveConstants {
+    public static final boolean kLeftEncoderReversed = false;
+    public static final boolean kRightEncoderReversed = true;
+
+    public static final double kTrackwidthMeters = 0.69;
+    public static final DifferentialDriveKinematics kDriveKinematics =
+        new DifferentialDriveKinematics(kTrackwidthMeters);
+
+    public static final int kEncoderCPR = 1;
+    public static final double kWheelDiameterMeters = 0.15;
+    public static final double kEncoderDistancePerPulse =
+        // Assumes the encoders are directly mounted on the wheel shafts
+        (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
+
+    public static final double ksVolts = 0.222;
+    public static final double kvVoltSecondsPerMeter = 2.8;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.437;
+
+    public static final double kPDriveVel = 0; // 2.32
+  }
+
+  public static final class AutoConstants {
+    public static final double kMaxSpeedMetersPerSecond = 0.03048;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 0.01524;
+
+    // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
+    public static final double kRamseteB = 2;
+    public static final double kRamseteZeta = 0.7;
+  }
+
 }
