@@ -76,10 +76,7 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     m_odometry.update(getHeading(), leftEncoder.getPosition(), rightEncoder.getPosition());
-    SmartDashboard.putNumber("heading", getHeading().getDegrees());
-    SmartDashboard.putNumber("turn rate", getTurnRate());
-    SmartDashboard.putString("wheel speeds", getWheelSpeeds().toString());
-    SmartDashboard.putString("robot pose",m_odometry.getPoseMeters().toString());
+	logData();
   }
 
   public void drive(double left, double right) {
@@ -177,7 +174,14 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public Rotation2d getHeading() {
 	return m_gyro.getRotation2d();
-}
+  }
+
+  public void logData() {
+    SmartDashboard.putNumber("heading", getHeading().getDegrees());
+    SmartDashboard.putNumber("turn rate", getTurnRate());
+    SmartDashboard.putString("wheel speeds", getWheelSpeeds().toString());
+    SmartDashboard.putString("robot pose",m_odometry.getPoseMeters().toString());
+  }
 
   /*
   	TRAJECTORY GENERATION AND TRACKING
