@@ -32,6 +32,7 @@ public class RobotContainer {
   public final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   public final static ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
   public final static Intake m_IntakeSubsystem = new Intake();
+  public final static Indexer m_IndexerSubsystem = new Indexer();
 
   /*
    * Commands
@@ -46,6 +47,7 @@ public class RobotContainer {
   GenericHID operatorGamepad = new Joystick(RobotMap.operatorGamepad);
 	Button aimBot = new JoystickButton(operatorGamepad, 3);
   Button shootButton = new JoystickButton(operatorGamepad, RobotMap.SHOOT_BUTTON);
+  Button indexerFeedButton = new JoystickButton(operatorGamepad, RobotMap.INDEXER_FEED_BUTTON);
 
   Button intakeButton = new JoystickButton(operatorGamepad, RobotMap.INTAKE_BUTTON);
 
@@ -66,6 +68,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     shootButton.whileHeld(new ShootCommand());
     intakeButton.whileHeld(new IntakeBall());
+    indexerFeedButton.whileHeld(new IndexerFeed());
   }
 
   public Command getAutonomousCommand() {

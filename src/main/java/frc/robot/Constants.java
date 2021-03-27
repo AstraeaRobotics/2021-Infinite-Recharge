@@ -36,4 +36,5 @@ public class Constants {
   }
   
   public static final double intakeSpeed = .8;
+  public static final double indexerSpeed = .3;
 }

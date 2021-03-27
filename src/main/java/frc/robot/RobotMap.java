@@ -11,13 +11,13 @@ public class RobotMap {
   public static int leftStick = 0;
   public static int rightStick = 0;
   public static int SHOOT_BUTTON = 1;
-  
+  public static int INDEXER_FEED_BUTTON = 2;
   public static int INTAKE_BUTTON = 3;
 
   public static int SHOOTER_MOTOR_LEFT = 5;
   public static int SHOOTER_MOTOR_RIGHT = 6;
-  
-  
+  public static int INDEXER_MOTOR_TOP = 7;
+  public static int INDEXER_MOTOR_BOTTOM = 8;
   public static int INTAKE_MOTOR_LEFT = 9;
   public static int INTAKE_MOTOR_RIGHT = 10;
 }
