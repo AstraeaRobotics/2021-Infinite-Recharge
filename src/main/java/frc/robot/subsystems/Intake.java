@@ -26,8 +26,8 @@ public class Intake extends SubsystemBase {
   }
 
   public void intakeBall() {
-    leftMotor.set(ControlMode.PercentOutput, Constants.intakeSpeed);
-    rightMotor.set(-Constants.intakeSpeed);
+    leftMotor.set(ControlMode.PercentOutput, -Constants.intakeSpeed);
+    rightMotor.set(Constants.intakeSpeed);
   }
 
   public void stop() {
