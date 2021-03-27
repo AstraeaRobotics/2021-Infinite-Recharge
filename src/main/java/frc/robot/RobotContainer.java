@@ -31,6 +31,7 @@ public class RobotContainer {
   public final static Limelight m_limelight = new Limelight("limelight");
   public final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   public final static ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
+  public final static Intake m_IntakeSubsystem = new Intake();
 
   /*
    * Commands
@@ -45,6 +46,8 @@ public class RobotContainer {
   GenericHID operatorGamepad = new Joystick(RobotMap.operatorGamepad);
 	Button aimBot = new JoystickButton(operatorGamepad, 3);
   Button shootButton = new JoystickButton(operatorGamepad, RobotMap.SHOOT_BUTTON);
+
+  Button intakeButton = new JoystickButton(operatorGamepad, RobotMap.INTAKE_BUTTON);
 
 
   public RobotContainer() {
@@ -62,6 +65,7 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     shootButton.whileHeld(new ShootCommand());
+    intakeButton.whileHeld(new IntakeBall());
   }
 
   public Command getAutonomousCommand() {

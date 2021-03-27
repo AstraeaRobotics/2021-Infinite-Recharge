@@ -34,4 +34,6 @@ public class Constants {
     public static double largeAngleThreshold = 10.0;
     public static double smallAngleThreshold = 1.0;
   }
+  
+  public static final double intakeSpeed = .8;
 }
