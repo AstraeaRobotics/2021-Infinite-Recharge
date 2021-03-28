@@ -44,7 +44,7 @@ public class RobotContainer {
    * Buttons
    */
   
-  GenericHID operatorGamepad = new Joystick(RobotMap.operatorGamepad);
+  public static GenericHID operatorGamepad = new Joystick(RobotMap.operatorGamepad);
 	Button aimBot = new JoystickButton(operatorGamepad, 3);
   Button shootButton = new JoystickButton(operatorGamepad, RobotMap.SHOOT_BUTTON);
   Button indexerFeedButton = new JoystickButton(operatorGamepad, RobotMap.INDEXER_FEED_BUTTON);

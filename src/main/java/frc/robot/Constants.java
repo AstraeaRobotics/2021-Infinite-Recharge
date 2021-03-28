@@ -23,8 +23,8 @@ public class Constants {
     public static final double kFF = 0.000092; 
     public static final double kMaxOutput = 1; 
     public static final double kMinOutput = -1;
-    public static final double maxRPM = 5700;
-    public static final double velocity = 5700;
+    public static final double maxRPM = 11000;
+    public static final double multiplier = .85;
   }
 
   public static class visionConstants {

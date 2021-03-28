@@ -23,31 +23,33 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ShooterSubsystem extends SubsystemBase {
   public static ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
   
-  private CANSparkMax leftMotor = new CANSparkMax(RobotMap.SHOOTER_MOTOR_LEFT, CANSparkMaxLowLevel.MotorType.kBrushless);
-  private CANPIDController leftPidController = leftMotor.getPIDController();
-  private CANEncoder leftEncoder = leftMotor.getEncoder();
+  private CANSparkMax topMotor = new CANSparkMax(RobotMap.SHOOTER_MOTOR_TOP, CANSparkMaxLowLevel.MotorType.kBrushless);
+  private CANPIDController topPidController = topMotor.getPIDController();
+  private CANEncoder topEncoder = topMotor.getEncoder();
 
-  private CANSparkMax rightMotor = new CANSparkMax(RobotMap.SHOOTER_MOTOR_RIGHT, CANSparkMaxLowLevel.MotorType.kBrushless);
-  private CANPIDController rightPidController = rightMotor.getPIDController();
-  private CANEncoder rightEncoder = rightMotor.getEncoder();
+  private CANSparkMax bottomMotor = new CANSparkMax(RobotMap.SHOOTER_MOTOR_BOTTOM, CANSparkMaxLowLevel.MotorType.kBrushless);
+  private CANPIDController bottomPidController = bottomMotor.getPIDController();
+  private CANEncoder bottomEncoder = bottomMotor.getEncoder();
   
   public ShooterSubsystem() {
     System.out.println("Shooter Constructor");
-    leftPidController.setP(Constants.shooterConstants.kP);
-    leftPidController.setI(Constants.shooterConstants.kI);
-    leftPidController.setD(Constants.shooterConstants.kD);
-    leftPidController.setIZone(Constants.shooterConstants.kIz);
-    leftPidController.setFF(Constants.shooterConstants.kFF);
-    leftPidController.setOutputRange(Constants.shooterConstants.kMinOutput, Constants.shooterConstants.kMaxOutput);
+    topPidController.setP(Constants.shooterConstants.kP);
+    topPidController.setI(Constants.shooterConstants.kI);
+    topPidController.setD(Constants.shooterConstants.kD);
+    topPidController.setIZone(Constants.shooterConstants.kIz);
+    topPidController.setFF(Constants.shooterConstants.kFF);
+    topPidController.setOutputRange(Constants.shooterConstants.kMinOutput, Constants.shooterConstants.kMaxOutput);
 
-    rightPidController.setP(Constants.shooterConstants.kP);
-    rightPidController.setI(Constants.shooterConstants.kI);
-    rightPidController.setD(Constants.shooterConstants.kD);
-    rightPidController.setIZone(Constants.shooterConstants.kIz);
-    rightPidController.setFF(Constants.shooterConstants.kFF);
-    rightPidController.setOutputRange(Constants.shooterConstants.kMinOutput, Constants.shooterConstants.kMaxOutput);
+    bottomPidController.setP(Constants.shooterConstants.kP);
+    bottomPidController.setI(Constants.shooterConstants.kI);
+    bottomPidController.setD(Constants.shooterConstants.kD);
+    bottomPidController.setIZone(Constants.shooterConstants.kIz);
+    bottomPidController.setFF(Constants.shooterConstants.kFF);
+    bottomPidController.setOutputRange(Constants.shooterConstants.kMinOutput, Constants.shooterConstants.kMaxOutput);
   }
 	public void debug(){
+    double sp = Constants.shooterConstants.multiplier * Constants.shooterConstants.maxRPM;
+
     SmartDashboard.putNumber("P Gain", Constants.shooterConstants.kP);
     SmartDashboard.putNumber("I Gain", Constants.shooterConstants.kI);
     SmartDashboard.putNumber("D Gain", Constants.shooterConstants.kD);
@@ -55,21 +57,25 @@ public class ShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Feed Forward", Constants.shooterConstants.kFF);
     SmartDashboard.putNumber("Max Output", Constants.shooterConstants.kMinOutput);
     SmartDashboard.putNumber("Min Output", Constants.shooterConstants.kMaxOutput);
-    SmartDashboard.putNumber("Setpoint", Constants.shooterConstants.velocity);
-    SmartDashboard.putNumber("RightVelocity", rightEncoder.getVelocity());
-    SmartDashboard.putNumber("LeftVelocity", leftEncoder.getVelocity());
+    SmartDashboard.putNumber("Setpoint", sp);
+    SmartDashboard.putNumber("BottomVelocity", bottomEncoder.getVelocity());
+    SmartDashboard.putNumber("TopVelocity", topEncoder.getVelocity());
 	}
   public void shoot() {
     System.out.println("shoot :D");
     debug();
 
-    leftPidController.setReference(Constants.shooterConstants.velocity, ControlType.kVelocity);
-    rightPidController.setReference(-Constants.shooterConstants.velocity, ControlType.kVelocity); // negative b/c reverse
+    double speed = Constants.shooterConstants.multiplier * Constants.shooterConstants.maxRPM;
+
+    topPidController.setReference(speed, ControlType.kVelocity);
+    bottomPidController.setReference(-speed, ControlType.kVelocity); // negative b/c reverse
   }
 
   public void setSpeed(double speed) {
-    leftMotor.set(speed);
-    rightMotor.set(-speed);
+    debug();
+
+    topMotor.set(speed);
+    bottomMotor.set(-speed);
   }
 }
 

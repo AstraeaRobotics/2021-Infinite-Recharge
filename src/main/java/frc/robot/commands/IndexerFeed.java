@@ -12,7 +12,7 @@ public class IndexerFeed extends CommandBase {
   /** Creates a new IndexerFeed. */
   public IndexerFeed() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.m_ShooterSubsystem);
+    addRequirements(RobotContainer.m_IndexerSubsystem);
   }
 
   // Called when the command is initially scheduled.

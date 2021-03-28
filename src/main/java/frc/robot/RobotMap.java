@@ -14,8 +14,8 @@ public class RobotMap {
   public static int INDEXER_FEED_BUTTON = 2;
   public static int INTAKE_BUTTON = 3;
 
-  public static int SHOOTER_MOTOR_LEFT = 5;
-  public static int SHOOTER_MOTOR_RIGHT = 6;
+  public static int SHOOTER_MOTOR_TOP = 5;
+  public static int SHOOTER_MOTOR_BOTTOM = 6;
   public static int INDEXER_MOTOR_TOP = 7;
   public static int INDEXER_MOTOR_BOTTOM = 8;
   public static int INTAKE_MOTOR_LEFT = 9;
