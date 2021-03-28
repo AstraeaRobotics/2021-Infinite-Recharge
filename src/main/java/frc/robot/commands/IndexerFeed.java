@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.RobotContainer;
-import frc.robot.Constants();
+import frc.robot.Constants;
 
 public class IndexerFeed extends CommandBase {
   /** Creates a new IndexerFeed. */
