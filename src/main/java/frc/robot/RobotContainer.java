@@ -54,7 +54,7 @@ public class RobotContainer {
 
   public RobotContainer() {
 	  configureButtonBindings();
-	  m_driveSubsystem.setDefaultCommand(new TankDrive());
+	  m_driveSubsystem.setDefaultCommand(new CheezyDrive());
   }
 
   public static Joystick getRightJoy() {
@@ -64,6 +64,8 @@ public class RobotContainer {
   public static Joystick getLeftJoy() {
 	  return leftJoy;
   }
+
+  
 
   private void configureButtonBindings() {
     shootButton.whileHeld(new ShootCommand());
