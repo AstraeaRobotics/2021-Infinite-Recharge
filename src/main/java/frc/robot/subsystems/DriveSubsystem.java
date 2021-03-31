@@ -11,6 +11,8 @@ import com.revrobotics.CANSparkMaxLowLevel;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -52,6 +54,20 @@ public class DriveSubsystem extends SubsystemBase {
 	public void drive(double left, double right) {
 		//System.out.println("left: " + left + " right: " + right);
 		drive.tankDrive(left, right);
+	}
+
+	public void turnInPlace(double speed) {
+		drive.arcadeDrive(0, speed);
+	}
+
+	public void curve(double speed, double turnRate, boolean quick) {
+		//System.out.println(speed);
+		//System.out.println(turnRate);
+		
+		SmartDashboard.putNumber("Speed", speed);
+		SmartDashboard.putNumber("Turn", turnRate);
+
+		drive.curvatureDrive(speed, turnRate, quick);
 	}
 
 	@Override
