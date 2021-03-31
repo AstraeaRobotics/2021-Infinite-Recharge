@@ -66,9 +66,9 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    shootButton.whileHeld(new ShootCommand());
+    shootButton.whileHeld(new FeedShoot());
     intakeButton.whileHeld(new IntakeBall());
-    indexerFeedButton.whileHeld(new IndexerFeed());
+    //indexerFeedButton.whileHeld(new IndexerFeed());
   }
 
   public Command getAutonomousCommand() {
