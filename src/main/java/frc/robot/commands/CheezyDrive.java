@@ -36,7 +36,7 @@ public class CheezyDrive extends CommandBase {
     
     //if both are pressed, then reduce speed based on how much the second trigger is pressed (emulates Need for Speed games)
      if(pressedR2 && pressedL2) {
-      RobotContainer.m_driveSubsystem.curve(axisR2-axisL2, axisJoystick, false);
+      RobotContainer.m_driveSubsystem.curve((axisR2-axisL2)*throttleSensitivityMultiplier, axisJoystick, false);
     }
     else if(pressedR2) {
       RobotContainer.m_driveSubsystem.curve(axisR2*throttleSensitivityMultiplier, axisJoystick, false);
