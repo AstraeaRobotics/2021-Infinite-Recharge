@@ -20,8 +20,10 @@ public class RobotContainer {
    * OI
    */
 
-  public static Joystick rightJoy = new Joystick(0);
-  public static Joystick leftJoy = new Joystick(1);
+  public static Joystick rightJoy = new Joystick(RobotMap.rightStick);
+  public static Joystick leftJoy = new Joystick(RobotMap.leftStick);
+  public static GenericHID operatorGamepad = new Joystick(RobotMap.operatorGamepad);
+  public static GenericHID driverGamepad = new Joystick(RobotMap.driverGamepad);
 
   /*
    * Subsystems
@@ -44,8 +46,7 @@ public class RobotContainer {
    * Buttons
    */
   
-  public static GenericHID operatorGamepad = new Joystick(RobotMap.operatorGamepad);
-	Button aimBot = new JoystickButton(operatorGamepad, 3);
+  Button aimBot = new JoystickButton(operatorGamepad, 3);
   Button shootButton = new JoystickButton(operatorGamepad, RobotMap.SHOOT_BUTTON);
   Button indexerFeedButton = new JoystickButton(operatorGamepad, RobotMap.INDEXER_FEED_BUTTON);
 
@@ -54,7 +55,7 @@ public class RobotContainer {
 
   public RobotContainer() {
 	  configureButtonBindings();
-	  m_driveSubsystem.setDefaultCommand(new CheezyDrive());
+	  m_driveSubsystem.setDefaultCommand(new SimDrive());
   }
 
   public static Joystick getRightJoy() {

@@ -12,7 +12,7 @@ public class Constants {
 	public static Joystick leftDriveStick = new Joystick(0);
 	public static Joystick rightDriveStick = new Joystick(1);
 
-	final static public int driveSpeed = 1;
+	final static public double driveSpeed = .75;
 	final static public int shooterMode = 0; // mode 0: low shooter | mode 1: high shooter
   
   public static class shooterConstants  {

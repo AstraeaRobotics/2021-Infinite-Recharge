@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import frc.robot.RobotMap;
+
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -25,10 +27,10 @@ public class DriveSubsystem extends SubsystemBase {
 	DifferentialDrive drive;
 
 	public DriveSubsystem() {
-		right1 = new CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless);
-		right2 = new CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushless);
-		left1 = new CANSparkMax(3, CANSparkMaxLowLevel.MotorType.kBrushless);
-		left2 = new CANSparkMax(4, CANSparkMaxLowLevel.MotorType.kBrushless);
+		right1 = new CANSparkMax(RobotMap.DRIVE_RIGHT1, CANSparkMaxLowLevel.MotorType.kBrushless);
+		right2 = new CANSparkMax(RobotMap.DRIVE_RIGHT2, CANSparkMaxLowLevel.MotorType.kBrushless);
+		left1 = new CANSparkMax(RobotMap.DRIVE_LEFT1, CANSparkMaxLowLevel.MotorType.kBrushless);
+		left2 = new CANSparkMax(RobotMap.DRIVE_LEFT2, CANSparkMaxLowLevel.MotorType.kBrushless);
 		// rightM = new CANSparkMax(5, CANSparkMaxLowLevel.MotorType.kBrushless);
 		// rightB = new CANSparkMax(6, CANSparkMaxLowLevel.MotorType.kBrushless);
 
@@ -63,9 +65,6 @@ public class DriveSubsystem extends SubsystemBase {
 	public void curve(double speed, double turnRate, boolean quick) {
 		//System.out.println(speed);
 		//System.out.println(turnRate);
-		
-		SmartDashboard.putNumber("Speed", speed);
-		SmartDashboard.putNumber("Turn", turnRate);
 
 		drive.curvatureDrive(speed, turnRate, quick);
 	}
