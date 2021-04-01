@@ -23,10 +23,25 @@ public class CheezyDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.operatorGamepad.getRawButton(8)) {
-      RobotContainer.m_driveSubsystem.curve(.5*(RobotContainer.operatorGamepad.getRawAxis(4) + 1) / 2, RobotContainer.operatorGamepad.getRawAxis(0), false);
-    } else if(RobotContainer.operatorGamepad.getRawButton(7)) {
-      RobotContainer.m_driveSubsystem.curve(-.5*(RobotContainer.operatorGamepad.getRawAxis(3) + 1) / 2, RobotContainer.operatorGamepad.getRawAxis(0), false);
+     Boolean pressedL2 = RobotContainer.operatorGamepad.getRawButton(7);
+     Boolean pressedR2 = RobotContainer.operatorGamepad.getRawButton(8);
+     double axisJoystick = RobotContainer.operatorGamepad.getRawAxis(0);
+  
+    //remap from [-1,1] to [0,1]
+     double axisL2 = (RobotContainer.operatorGamepad.getRawAxis(3)+1.0)/2.0;
+     double axisR2 = (RobotContainer.operatorGamepad.getRawAxis(4)+1.0)/2.0;
+    
+     //move this to constants
+     double throttleSensitivityMultiplier = .5;
+    
+    //if both are pressed, then reduce speed based on how much the second trigger is pressed (emulates Need for Speed games)
+     if(pressedR2 && pressedL2) {
+      RobotContainer.m_driveSubsystem.curve(axisR2-axisL2, axisJoystick, false);
+    }
+    else if(pressedR2) {
+      RobotContainer.m_driveSubsystem.curve(axisR2*throttleSensitivityMultiplier, axisJoystick, false);
+    } else if(pressedL2) {
+      RobotContainer.m_driveSubsystem.curve(-axisL2*throttleSensitivityMultiplier, axisJoystick, false);
     } else {
       RobotContainer.m_driveSubsystem.curve(0, RobotContainer.operatorGamepad.getRawAxis(2), true);
     
