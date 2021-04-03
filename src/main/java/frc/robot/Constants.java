@@ -34,6 +34,19 @@ public class Constants {
     public static double largeAngleThreshold = 10.0;
     public static double smallAngleThreshold = 1.0;
   }
+
+  public static class driveConstants {
+    public static final double kP = 6e-5;
+    public static final double kI = 0;
+    public static final double kD = 0; 
+    public static final double kIz = 0.0;
+    public static final double kFF = 0.00022; 
+    private double kMaxOutput = 1; 
+    private double kMinOutput = -1;
+    private double maxRPM = 5700;
+
+    private double sp = 1500;
+  }
   
   public static final double intakeSpeed = .8;
   public static final double indexerSpeed = .2;
