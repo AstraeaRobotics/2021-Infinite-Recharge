@@ -12,7 +12,7 @@ public class RobotMap {
   public static int rightStick = 0;
   
   public static int SHOOT_BUTTON = 1;
-  public static int INDEXER_FEED_BUTTON = 2;
+  public static int AUTOAIM_BUTTON = 2;
   public static int INTAKE_BUTTON = 3;
   public static int LT_BTN = 7;
   public static int RT_BTN = 8;

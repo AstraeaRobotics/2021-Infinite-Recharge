@@ -24,7 +24,7 @@ public class IndexerFeed extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Math.abs(SmartDashboard.getNumber("BottomVelocity", 0)) < .95*Constants.shooterConstants.multiplier * Constants.shooterConstants.maxRPM) {
+    if(Math.abs(SmartDashboard.getNumber("BottomVelocity", 0)) < .9*Constants.shooterConstants.multiplier * Constants.shooterConstants.maxRPM) {
       System.out.println("waiting");
       
     } else {

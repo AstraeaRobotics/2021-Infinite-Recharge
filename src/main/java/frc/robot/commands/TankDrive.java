@@ -23,7 +23,11 @@ public class TankDrive extends CommandBase {
 
   @Override
   public void execute() {
-    RobotContainer.m_driveSubsystem.drive(RobotContainer.getLeftJoy().getY(), RobotContainer.getRightJoy().getY());
+    // Tank:
+    //RobotContainer.m_driveSubsystem.drive(RobotContainer.getLeftJoy().getY(), RobotContainer.getRightJoy().getY());
+    
+    // Arcade:
+    RobotContainer.m_driveSubsystem.arcadeDrive(RobotContainer.driverGamepad.getRawAxis(5), RobotContainer.driverGamepad.getRawAxis(0));
   }
 
   @Override

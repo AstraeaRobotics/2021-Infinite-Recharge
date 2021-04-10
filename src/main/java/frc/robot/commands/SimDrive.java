@@ -27,14 +27,19 @@ public class SimDrive extends CommandBase {
   public void execute() {
     double driveSpeed = Constants.driveSpeed;
 
+    double speed1 = driveSpeed*(RobotContainer.driverGamepad.getRawAxis(RobotMap.RT_AXIS) + 1) / 2;
+    double speed2 = driveSpeed*(RobotContainer.driverGamepad.getRawAxis(RobotMap.LT_AXIS) + 1) / 2;
+
     if(RobotContainer.driverGamepad.getRawButton(RobotMap.RT_BTN)) {
-      RobotContainer.m_driveSubsystem.curve(driveSpeed*(RobotContainer.driverGamepad.getRawAxis(RobotMap.RT_AXIS) + 1) / 2, RobotContainer.driverGamepad.getRawAxis(RobotMap.LS_HORIZONTAL_AXIS), false);
+      RobotContainer.m_driveSubsystem.curve(-speed1, RobotContainer.driverGamepad.getRawAxis(RobotMap.LS_HORIZONTAL_AXIS), false);
     } else if(RobotContainer.driverGamepad.getRawButton(RobotMap.LT_BTN)) {
-      RobotContainer.m_driveSubsystem.curve(-driveSpeed*(RobotContainer.driverGamepad.getRawAxis(RobotMap.LT_AXIS) + 1) / 2, -RobotContainer.driverGamepad.getRawAxis(RobotMap.LS_HORIZONTAL_AXIS), false);
+      RobotContainer.m_driveSubsystem.curve(speed2, -RobotContainer.driverGamepad.getRawAxis(RobotMap.LS_HORIZONTAL_AXIS), false);
     } else {
-      RobotContainer.m_driveSubsystem.curve(0, RobotContainer.driverGamepad.getRawAxis(RobotMap.RS_HORIZONTAL_AXIS), true);
+      RobotContainer.m_driveSubsystem.curve(0, .25*RobotContainer.driverGamepad.getRawAxis(RobotMap.RS_HORIZONTAL_AXIS), true);
     }
     
+
+    //RobotContainer.m_driveSubsystem.curve(RobotContainer.driverGamepad.getRawAxis(RobotMap.LS_VERTICAL_AXIS), RobotContainer.driverGamepad.getRawAxis(RobotMap.RS_HORIZONTAL_AXIS), RobotContainer.driverGamepad.getRawButton(RobotMap.SHOOT_BUTTON));
   }
 
   // Called once the command ends or is interrupted.

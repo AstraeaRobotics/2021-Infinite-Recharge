@@ -23,6 +23,7 @@ public class Indexer extends SubsystemBase {
   }
 
   public void feed() {
+    System.out.println("feed sub");
     bottomMotor.set(Constants.indexerSpeed);
     topMotor.set(-Constants.indexerSpeed);
   }

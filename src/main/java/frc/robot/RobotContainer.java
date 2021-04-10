@@ -48,8 +48,7 @@ public class RobotContainer {
   
   Button aimBot = new JoystickButton(operatorGamepad, 3);
   Button shootButton = new JoystickButton(operatorGamepad, RobotMap.SHOOT_BUTTON);
-  Button indexerFeedButton = new JoystickButton(operatorGamepad, RobotMap.INDEXER_FEED_BUTTON);
-
+  Button autoaimButton = new JoystickButton(operatorGamepad, RobotMap.AUTOAIM_BUTTON);
   Button intakeButton = new JoystickButton(operatorGamepad, RobotMap.INTAKE_BUTTON);
 
 
@@ -71,7 +70,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     shootButton.whileHeld(new FeedShoot());
     intakeButton.whileHeld(new IntakeBall());
-    //indexerFeedButton.whileHeld(new IndexerFeed());
+    //autoaimButton.whileHeld(new Aimbot());
   }
 
   public Command getAutonomousCommand() {

@@ -62,9 +62,18 @@ public class DriveSubsystem extends SubsystemBase {
 		drive.arcadeDrive(0, speed);
 	}
 
+	public void arcadeDrive(double speed, double turnRate) {
+		drive.arcadeDrive(-speed, .4*turnRate);
+	}
+
 	public void curve(double speed, double turnRate, boolean quick) {
 		//System.out.println(speed);
 		//System.out.println(turnRate);
+
+		SmartDashboard.putNumber("right1", right1.getEncoder().getVelocity());
+		SmartDashboard.putNumber("right2", right2.getEncoder().getVelocity());
+		SmartDashboard.putNumber("left1", left1.getEncoder().getVelocity());
+		SmartDashboard.putNumber("left2", left2.getEncoder().getVelocity());
 
 		drive.curvatureDrive(speed, turnRate, quick);
 	}
