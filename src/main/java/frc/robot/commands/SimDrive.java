@@ -27,8 +27,11 @@ public class SimDrive extends CommandBase {
   public void execute() {
     double driveSpeed = Constants.driveSpeed;
 
-    double speed1 = driveSpeed*(RobotContainer.driverGamepad.getRawAxis(RobotMap.RT_AXIS) + 1) / 2;
-    double speed2 = driveSpeed*(RobotContainer.driverGamepad.getRawAxis(RobotMap.LT_AXIS) + 1) / 2;
+    double speed1raw = driveSpeed*(RobotContainer.driverGamepad.getRawAxis(RobotMap.RT_AXIS) + 1) / 2;
+    double speed2raw = driveSpeed*(RobotContainer.driverGamepad.getRawAxis(RobotMap.LT_AXIS) + 1) / 2;
+    //pass the speed [0,1] into the function x^2. can also do more complicated polynomials, was thinking about simulating a gas car's torque curves by having a function concave up from (0,.6) and then concave down from (.6,1) to make the throttle taper off
+    double speed1 = speed1raw*speed1raw
+    double speed2 = speed2raw*speed2raw
 
     if(RobotContainer.driverGamepad.getRawButton(RobotMap.RT_BTN)) {
       RobotContainer.m_driveSubsystem.curve(-speed1, RobotContainer.driverGamepad.getRawAxis(RobotMap.LS_HORIZONTAL_AXIS), false);
