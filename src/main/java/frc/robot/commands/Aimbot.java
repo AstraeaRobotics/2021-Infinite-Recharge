@@ -36,7 +36,7 @@ public class Aimbot extends CommandBase {
 		final double kPy = -.1f;
 		// minimum value to actually make the robot turn (at smaller values it may not
 		// turn due to friction)
-		final double min_aim_command = .16f;
+		final double feedforward = .16f;
 
 		// if a target is locked
 		if (RobotContainer.m_limelight.hasTarget()) {
@@ -59,9 +59,9 @@ public class Aimbot extends CommandBase {
 			} else {
 				SmartDashboard.putNumber("applying x adjust", 1);
 				if (kPx * -tx > 0) {
-					x_adjust = kPx * -tx + min_aim_command;
+					x_adjust = kPx * -tx + feedforward;
 				} else {
-					x_adjust = kPx * -tx - min_aim_command;
+					x_adjust = kPx * -tx - feedforward;
 				}
 			}
 			if (Math.abs(tx) < Constants.visionConstants.smallAngleThreshold) {
@@ -75,7 +75,7 @@ public class Aimbot extends CommandBase {
 
 			// drive the robot based on these motor values
 			RobotContainer.m_driveSubsystem.drive(x_adjust + y_adjust, -(x_adjust - y_adjust));
-			// RobotContainer.m_driveSubsystem.drive(0,min_aim_command);
+			// RobotContainer.m_driveSubsystem.drive(0,feedforward);
 
 		} else {
 			SmartDashboard.putBoolean("Limelight Target", false);
