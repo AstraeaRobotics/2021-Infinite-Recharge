@@ -10,8 +10,14 @@ import frc.robot.subsystems.*;
 import frc.robot.RobotContainer;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.SPI;
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SimDrive extends CommandBase {
+  AHRS gyro = new AHRS(SPI.Port.kMXP);
+
   /** Creates a new CheezyDrive. */
   public SimDrive() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -26,20 +32,45 @@ public class SimDrive extends CommandBase {
   @Override
   public void execute() {
     double driveSpeed = Constants.driveSpeed;
+    Boolean pressedL2 = RobotContainer.operatorGamepad.getRawButton(RobotMap.LT_BTN);
+    Boolean pressedR2 = RobotContainer.operatorGamepad.getRawButton(RobotMap.RT_BTN);
+    double axisLeftJoystick = RobotContainer.operatorGamepad.getRawAxis(RobotMap.LS_HORIZONTAL_AXIS);
+    double axisRightJoystick = RobotContainer.operatorGamepad.getRawAxis(RobotMap.RS_HORIZONTAL_AXIS);
+   //remap from [-1,1] to [0,1]
+    double axisL2raw = (RobotContainer.operatorGamepad.getRawAxis(RobotMap.LT_AXIS)+1.0)/2.0;
+    double axisR2raw = (RobotContainer.operatorGamepad.getRawAxis(RobotMap.RT_AXIS)+1.0)/2.0;
+   //pass to function x^2
+    double axisL2 = axisL2raw*axisL2raw;
+    double axisR2 = axisR2raw*axisR2raw;
+    //move this to constants
+   SmartDashboard.putNumber("left throttle", axisL2);
+   SmartDashboard.putNumber("right throttle", axisR2);
+   RobotContainer.m_driveSubsystem.setCoast();
+   //if both are pressed, then reduce speed based on how much the second trigger is pressed (emulates Need for Speed games)
+    if(pressedR2 && pressedL2) {
+      RobotContainer.m_driveSubsystem.setBrakes();
+     RobotContainer.m_driveSubsystem.curve(0, axisRightJoystick, true);
+   }
+   else if(pressedR2) {
+     if(RobotContainer.m_driveSubsystem.getDirection()>0 ||Math.abs(RobotContainer.m_driveSubsystem.getDirection())<5){
+     RobotContainer.m_driveSubsystem.curve(axisR2, axisLeftJoystick, false);
+     }else{
+      RobotContainer.m_driveSubsystem.setBrakes();
+      RobotContainer.m_driveSubsystem.curve(0, axisRightJoystick, true);
+     }
+   } else if(pressedL2) {
+     if(RobotContainer.m_driveSubsystem.getDirection()<0 ||Math.abs(RobotContainer.m_driveSubsystem.getDirection())<5){
+      RobotContainer.m_driveSubsystem.curve(-axisL2, axisLeftJoystick, false);
+     }else{
+      RobotContainer.m_driveSubsystem.setBrakes();
+      RobotContainer.m_driveSubsystem.curve(0, axisRightJoystick, true);
 
-    double speed1 = driveSpeed*(RobotContainer.driverGamepad.getRawAxis(RobotMap.RT_AXIS) + 1) / 2;
-    double speed2 = driveSpeed*(RobotContainer.driverGamepad.getRawAxis(RobotMap.LT_AXIS) + 1) / 2;
-
-    if(RobotContainer.driverGamepad.getRawButton(RobotMap.RT_BTN)) {
-      RobotContainer.m_driveSubsystem.curve(-speed1, RobotContainer.driverGamepad.getRawAxis(RobotMap.LS_HORIZONTAL_AXIS), false);
-    } else if(RobotContainer.driverGamepad.getRawButton(RobotMap.LT_BTN)) {
-      RobotContainer.m_driveSubsystem.curve(speed2, -RobotContainer.driverGamepad.getRawAxis(RobotMap.LS_HORIZONTAL_AXIS), false);
-    } else {
-      RobotContainer.m_driveSubsystem.curve(0, .25*RobotContainer.driverGamepad.getRawAxis(RobotMap.RS_HORIZONTAL_AXIS), true);
-    }
-    
-
-    //RobotContainer.m_driveSubsystem.curve(RobotContainer.driverGamepad.getRawAxis(RobotMap.LS_VERTICAL_AXIS), RobotContainer.driverGamepad.getRawAxis(RobotMap.RS_HORIZONTAL_AXIS), RobotContainer.driverGamepad.getRawButton(RobotMap.SHOOT_BUTTON));
+     }
+   } else {
+     //turn in place
+     RobotContainer.m_driveSubsystem.curve(0, axisRightJoystick, true);
+   
+   }
   }
 
   // Called once the command ends or is interrupted.

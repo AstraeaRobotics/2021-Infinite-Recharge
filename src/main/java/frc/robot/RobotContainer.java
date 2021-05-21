@@ -11,6 +11,20 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.*;
+import edu.wpi.first.wpilibj.util.Units;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import java.util.Arrays;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.controller.RamseteController;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import java.io.IOException;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+
+import edu.wpi.first.wpilibj.Filesystem;
+import java.nio.file.Path;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -29,7 +43,6 @@ public class RobotContainer {
    * Subsystems
    */
 
-
   public final static Limelight m_limelight = new Limelight("limelight");
   public final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   public final static ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
@@ -40,40 +53,69 @@ public class RobotContainer {
    * Commands
    */
 
-	// private final AutoCommand m_autoCommand = new AutoCommand();
+  // private final AutoCommand m_autoCommand = new AutoCommand();
 
   /**
    * Buttons
    */
-  
+
   Button aimBot = new JoystickButton(operatorGamepad, 3);
   Button shootButton = new JoystickButton(operatorGamepad, RobotMap.SHOOT_BUTTON);
   Button autoaimButton = new JoystickButton(operatorGamepad, RobotMap.AUTOAIM_BUTTON);
   Button intakeButton = new JoystickButton(operatorGamepad, RobotMap.INTAKE_BUTTON);
 
-
   public RobotContainer() {
-	  configureButtonBindings();
-	  m_driveSubsystem.setDefaultCommand(new SimDrive());
+    configureButtonBindings();
+    m_driveSubsystem.setDefaultCommand(new SimDrive());
   }
 
   public static Joystick getRightJoy() {
-	  return rightJoy;
+    return rightJoy;
   }
 
   public static Joystick getLeftJoy() {
-	  return leftJoy;
+    return leftJoy;
   }
-
-  
 
   private void configureButtonBindings() {
     shootButton.whileHeld(new FeedShoot());
     intakeButton.whileHeld(new IntakeBall());
-    //autoaimButton.whileHeld(new Aimbot());
+    // autoaimButton.whileHeld(new Aimbot());
   }
 
   public Command getAutonomousCommand() {
-	  return null;
+    TrajectoryConfig config = new TrajectoryConfig(
+      Units.feetToMeters(2), 
+      Units.feetToMeters(2)
+    );
+
+    config.setKinematics(m_driveSubsystem.getKinematics());
+
+ Trajectory pathWeaverTrajectory = new Trajectory();
+    Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve("output/slalom.wpilib.json");
+    try {
+      pathWeaverTrajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    RamseteCommand command = new RamseteCommand(
+        pathWeaverTrajectory,
+        m_driveSubsystem::getPose,
+        new RamseteController(2.0, 0.7),
+        m_driveSubsystem.getFeedforward(),
+        m_driveSubsystem.getKinematics(),
+        m_driveSubsystem::getSpeeds,
+        m_driveSubsystem.getLeftPIDController(),
+        m_driveSubsystem.getRightPIDController(),
+        m_driveSubsystem::setOutput,
+        m_driveSubsystem 
+    );
+
+    // Reset odometry to the starting pose of the trajectory.
+    m_driveSubsystem.resetOdometry(pathWeaverTrajectory.getInitialPose());
+
+    // Run path following command, then stop at the end.
+    return command.andThen(() -> m_driveSubsystem.setOutput(0, 0));
   }
 }
