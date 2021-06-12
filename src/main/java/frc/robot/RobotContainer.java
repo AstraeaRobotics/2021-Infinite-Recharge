@@ -48,6 +48,7 @@ public class RobotContainer {
   public final static ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
   public final static Intake m_IntakeSubsystem = new Intake();
   public final static Indexer m_IndexerSubsystem = new Indexer();
+  public final static Elevator m_ElevatorSubsysem = new Elevator();
 
   /*
    * Commands
@@ -59,10 +60,13 @@ public class RobotContainer {
    * Buttons
    */
 
-  Button aimBot = new JoystickButton(operatorGamepad, 3);
-  Button shootButton = new JoystickButton(operatorGamepad, RobotMap.SHOOT_BUTTON);
-  Button autoaimButton = new JoystickButton(operatorGamepad, RobotMap.AUTOAIM_BUTTON);
-  Button intakeButton = new JoystickButton(operatorGamepad, RobotMap.INTAKE_BUTTON);
+  // Button aimBot = new JoystickButton(operatorGamepad, 3);
+  // Button shootButton = new JoystickButton(operatorGamepad, RobotMap.SHOOT_BUTTON);
+  // Button autoaimButton = new JoystickButton(operatorGamepad, RobotMap.AUTOAIM_BUTTON);
+  // Button intakeButton = new JoystickButton(operatorGamepad, RobotMap.INTAKE_BUTTON);
+
+  Button raiseElevator = new JoystickButton(operatorGamepad, 3);
+  Button lowerElevator = new JoystickButton(operatorGamepad, 2); 
 
   public RobotContainer() {
     configureButtonBindings();
@@ -78,9 +82,8 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    shootButton.whileHeld(new FeedShoot());
-    intakeButton.whileHeld(new IntakeBall());
-    // autoaimButton.whileHeld(new Aimbot());
+    raiseElevator.whileHeld(new RaiseElevator());
+    lowerElevator.whileHeld(new LowerElevator());
   }
 
   public Command getAutonomousCommand() {

@@ -15,6 +15,25 @@ public class Constants {
 	final static public double driveSpeed = .75;
 	final static public int shooterMode = 0; // mode 0: low shooter | mode 1: high shooter
   
+  public static class elevatorConstants {
+    
+    public static double kP = 5e-5;
+    public static double kI = 0;
+    public static double  kD = 0; 
+    public static double  kIz = 0.0; 
+    //public double  kFF = 0.000015;
+    //public double  kFF = 0.000156; 
+    public static double  kFF = 0.000156;
+    public static double  kMaxOutput = 1; 
+    public static double  kMinOutput = -1;
+    public static double  maxRPM = 5700;
+
+    public static double maxVel = 4000;
+    public static double maxAcc = 100;
+
+    public static double setpoint = 500;
+  }
+  
   public static class shooterConstants  {
     public static final double kP = 6e-5;
     public static final double kI = 0;
