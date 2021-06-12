@@ -34,4 +34,7 @@ public class RobotMap {
   public static int INDEXER_MOTOR_BOTTOM = 8;
   public static int INTAKE_MOTOR_LEFT = 9;
   public static int INTAKE_MOTOR_RIGHT = 10;
+
+  public static final int MASTER_ELEVATOR_MOTOR_PORT = 10;
+  public static final int SLAVE_ELEVATOR_MOTOR_PORT = 11;
 }

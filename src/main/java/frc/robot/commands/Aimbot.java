@@ -74,12 +74,14 @@ public class Aimbot extends CommandBase {
 			SmartDashboard.putNumber("Drive Adjust Val", y_adjust);
 
 			// drive the robot based on these motor values
-			RobotContainer.m_driveSubsystem.drive(x_adjust + y_adjust, -(x_adjust - y_adjust));
+			RobotContainer.m_driveSubsystem.drive(x_adjust + 0, -(x_adjust - 0));
 			// RobotContainer.m_driveSubsystem.drive(0,feedforward);
 
 		} else {
 			SmartDashboard.putBoolean("Limelight Target", false);
 		}
+
+		System.out.println("AIMBOTTT");
 
 	}
 
