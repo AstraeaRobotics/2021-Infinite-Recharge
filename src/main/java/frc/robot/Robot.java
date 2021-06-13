@@ -22,6 +22,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+
+  // Compressor Definition
+  public static Compressor compressor = new Compressor(RobotMap.PCM_CAN_ID);
   
 
   @Override
@@ -72,7 +75,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    
+    if(compressor.getPressureSwitchValue()) {
+      compressor.setClosedLoopControl(false);
+    }
+    else {
+      compressor.setClosedLoopControl(true);
+    }
   }
 
   @Override
