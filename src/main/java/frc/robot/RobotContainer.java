@@ -63,6 +63,8 @@ public class RobotContainer {
   Button shootButton = new JoystickButton(operatorGamepad, RobotMap.SHOOT_BUTTON);
   Button autoaimButton = new JoystickButton(operatorGamepad, RobotMap.AUTOAIM_BUTTON);
   Button intakeButton = new JoystickButton(operatorGamepad, RobotMap.INTAKE_BUTTON);
+  Button openIntake = new JoystickButton(operatorGamepad, RobotMap.OPEN_INTAKE_BUTTON);
+  Button closeIntake = new JoystickButton(operatorGamepad, RobotMap.CLOSE_INTAKE_BUTTON);
 
   public RobotContainer() {
     configureButtonBindings();
@@ -80,6 +82,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     shootButton.whileHeld(new FeedShoot());
     intakeButton.whileHeld(new IntakeBall());
+    openIntake.whenPressed(new openIntake());
+    closeIntake.whenPressed(new closeIntake());
     // autoaimButton.whileHeld(new Aimbot());
   }
 

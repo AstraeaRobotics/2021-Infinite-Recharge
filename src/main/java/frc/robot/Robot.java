@@ -7,7 +7,7 @@
 package frc.robot;
 
 // import frc.robot.commands.TankDrive;
-
+import frc.robot.subsystems.*;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.Compressor;
@@ -22,14 +22,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  private Intake m_intake;
 
   // Compressor Definition
-  public static Compressor compressor = new Compressor(RobotMap.PCM_CAN_ID);
-  
+  public static Compressor compressor = new Compressor(RobotMap.PCM_CAN_ID);  
 
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
+    m_intake = new Intake();
   }
 
 
@@ -41,6 +42,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
+    m_intake.closeIntake();
   }
 
   @Override
@@ -56,6 +58,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
+    m_intake.openIntake();
   }
 
   

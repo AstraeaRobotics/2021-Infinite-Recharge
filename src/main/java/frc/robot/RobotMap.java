@@ -18,6 +18,8 @@ public class RobotMap {
   public static int INTAKE_BUTTON = 3; // Note -- this activates pnuematics as well! Be careful!
   public static int LT_BTN = 7;
   public static int RT_BTN = 8;
+  public static int OPEN_INTAKE_BUTTON = 9;
+  public static int CLOSE_INTAKE_BUTTON = 10;
 
   // Joystick Axis
   public static int LS_HORIZONTAL_AXIS = 0;
