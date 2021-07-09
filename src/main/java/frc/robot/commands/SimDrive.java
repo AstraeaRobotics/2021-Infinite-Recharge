@@ -31,6 +31,8 @@ public class SimDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    valetMode = SmartDashboard.getBoolean("valetMode");
+
     double driveSpeed = Constants.driveSpeed;
     Boolean pressedL2 = RobotContainer.operatorGamepad.getRawButton(RobotMap.LT_BTN);
     Boolean pressedR2 = RobotContainer.operatorGamepad.getRawButton(RobotMap.RT_BTN);
@@ -42,11 +44,14 @@ public class SimDrive extends CommandBase {
    //pass to function x^2
     double axisL2 = axisL2raw*axisL2raw;
     double axisR2 = axisR2raw*axisR2raw;
+    if (valetMode){
+      axisL2 = axisL2*.3;
+      axisR2 = axisR2*.3;
+    }
     //move this to constants
    SmartDashboard.putNumber("left throttle", axisL2);
    SmartDashboard.putNumber("right throttle", axisR2);
    RobotContainer.m_driveSubsystem.setCoast();
-   //if both are pressed, then reduce speed based on how much the second trigger is pressed (emulates Need for Speed games)
     if(pressedR2 && pressedL2) {
       RobotContainer.m_driveSubsystem.setBrakes();
      RobotContainer.m_driveSubsystem.curve(0, axisRightJoystick, true);

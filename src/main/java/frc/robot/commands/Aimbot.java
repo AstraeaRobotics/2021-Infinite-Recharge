@@ -13,7 +13,8 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants;
 
 public class Aimbot extends CommandBase {
-
+	public boolean turnedOn = false;
+	public int xi = 0;
 	public Aimbot() {
 		SmartDashboard.putNumber("constructed aimbot ", 1);
 		addRequirements(RobotContainer.m_limelight);
@@ -24,13 +25,18 @@ public class Aimbot extends CommandBase {
 	@Override
 	public void initialize() {
 		SmartDashboard.putNumber("Running Limelight - init", 1);
-		RobotContainer.m_limelight.setLED("on");
+		
 		// RobotContainer.m_limelight.driverOnlyMode(false);
 
 	}
 
 	@Override
 	public void execute() {
+		if (!turnedOn){
+			turnedOn = true;
+			RobotContainer.m_limelight.setLED("on");
+			SmartDashboard.putBoolean("TURNING ON LED", true);
+		}
 		// PID VALUES (MUST BE TUNED)
 		final double kPx = -.02f;
 		final double kPy = -.1f;
@@ -85,7 +91,13 @@ public class Aimbot extends CommandBase {
 
 	@Override
 	public boolean isFinished() {
-		// RobotContainer.m_limelight.setLED("off");
+		SmartDashboard.putNumber("Running isFinished", xi);
+		xi++;
+		if (turnedOn){
+		turnedOn = false;
+		//RobotContainer.m_limelight.setLED("off");
+		//SmartDashboard.putBoolean("TURNING ON LED", false);
+		}
 		// RobotContainer.m_limelight.driverOnlyMode(true);
 		return true;
 	}

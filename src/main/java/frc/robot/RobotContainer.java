@@ -65,6 +65,8 @@ public class RobotContainer {
   Button intakeButton = new JoystickButton(operatorGamepad, RobotMap.INTAKE_BUTTON);
 
   public RobotContainer() {
+    m_limelight.setLED("off");
+    SmartDashboard.putBoolean("TURNING ON LED", false);
     configureButtonBindings();
     m_driveSubsystem.setDefaultCommand(new SimDrive());
   }
@@ -80,7 +82,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     shootButton.whileHeld(new FeedShoot());
     intakeButton.whileHeld(new IntakeBall());
-    // autoaimButton.whileHeld(new Aimbot());
+    autoaimButton.whileHeld(new Aimbot());
   }
 
   public Command getAutonomousCommand() {
