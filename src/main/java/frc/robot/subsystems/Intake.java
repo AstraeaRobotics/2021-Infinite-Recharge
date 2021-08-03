@@ -10,18 +10,18 @@ import frc.robot.RobotMap;
 import frc.robot.Constants;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 
 public class Intake extends SubsystemBase {
   
-  private TalonSRX leftMotor;
+  private VictorSPX leftMotor;
   private CANSparkMax rightMotor;
   
   /** Creates a new Intake. */
   public Intake() {
-    leftMotor = new TalonSRX(RobotMap.INTAKE_MOTOR_LEFT);
+    leftMotor = new VictorSPX(RobotMap.INTAKE_MOTOR_LEFT);
     rightMotor = new CANSparkMax(RobotMap.INTAKE_MOTOR_RIGHT, CANSparkMaxLowLevel.MotorType.kBrushless);
   }
 

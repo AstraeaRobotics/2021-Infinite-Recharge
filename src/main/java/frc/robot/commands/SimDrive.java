@@ -31,7 +31,7 @@ public class SimDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    valetMode = SmartDashboard.getBoolean("valetMode");
+    Boolean valetMode = SmartDashboard.getBoolean("valetMode",true);
 
     double driveSpeed = Constants.driveSpeed;
     Boolean pressedL2 = RobotContainer.operatorGamepad.getRawButton(RobotMap.LT_BTN);
