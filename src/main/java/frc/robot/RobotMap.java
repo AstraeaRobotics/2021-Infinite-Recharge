@@ -24,10 +24,10 @@ public class RobotMap {
   public static int LT_AXIS = 3;
   public static int RT_AXIS = 4;
 
-  public static int DRIVE_RIGHT1 = 1;
-  public static int DRIVE_RIGHT2 = 2;
-  public static int DRIVE_LEFT1 = 3;
-  public static int DRIVE_LEFT2 = 4;
+  public static int DRIVE_RIGHT1 = 3;
+  public static int DRIVE_RIGHT2 = 4;
+  public static int DRIVE_LEFT1 = 1;
+  public static int DRIVE_LEFT2 = 2;
   public static int SHOOTER_MOTOR_TOP = 5;
   public static int SHOOTER_MOTOR_BOTTOM = 6;
   public static int INDEXER_MOTOR_TOP = 7;

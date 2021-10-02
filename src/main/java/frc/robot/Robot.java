@@ -62,7 +62,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    SmartDashboard.putBoolean("Drive Mode", true);
+    SmartDashboard.putBoolean("valetMode", true);
 
 
     if (m_autonomousCommand != null) {

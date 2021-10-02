@@ -47,6 +47,7 @@ public class SimDrive extends CommandBase {
     if (valetMode){
       axisL2 = axisL2*.3;
       axisR2 = axisR2*.3;
+      axisRightJoystick = axisRightJoystick*.3;
     }
     //move this to constants
    SmartDashboard.putNumber("left throttle", axisL2);
