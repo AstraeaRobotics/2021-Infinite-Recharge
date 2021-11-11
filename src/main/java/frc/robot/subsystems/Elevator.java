@@ -28,11 +28,13 @@ public class Elevator extends SubsystemBase {
   CANEncoder elevatorMasterEncoder = elevatorMaster.getEncoder();
 
   public Elevator() { 
-    elevatorMaster = new CANSparkMax(RobotMap.MASTER_ELEVATOR_MOTOR_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
-    elevatorSlave = new CANSparkMax(RobotMap.SLAVE_ELEVATOR_MOTOR_PORT, CANSparkMaxLowLevel.MotorType.kBrushless);
+    elevatorMaster = new CANSparkMax(6, CANSparkMaxLowLevel.MotorType.kBrushless);
+    elevatorSlave = new CANSparkMax(8, CANSparkMaxLowLevel.MotorType.kBrushless);
 
     elevatorMaster.setIdleMode(IdleMode.kBrake);
     elevatorSlave.setIdleMode(IdleMode.kBrake);
+    elevatorMaster.setInverted(false);
+    elevatorSlave.setInverted(false);
 
     elevatorSlave.follow(elevatorMaster);
     
@@ -57,7 +59,7 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     log();
-    //elevatorMasterPidController.setReference(setpoint, ControlType.kSmartMotion);
+    elevatorMasterPidController.setReference(setpoint, ControlType.kSmartMotion);
 
   }
   public void log(){
@@ -92,20 +94,25 @@ public class Elevator extends SubsystemBase {
     }
 
     elevatorMasterPidController.setReference(getSP, ControlType.kSmartMotion);
-    SmartDashboard.putNumber("Setpoint", setpoint);
+    // SmartDashboard.putNumber("Setpoint", setpoint);
     SmartDashboard.putNumber("ProcessVariable", elevatorMasterEncoder.getPosition());
   }
 
   public void raiseElevator() {
     setpoint = 500;
-    elevatorMaster.set(.01);
+    elevatorMaster.set(.2);
+    elevatorSlave.set(-.2);
   }
   public void holdElevator() {
     elevatorMaster.set(0);
+    elevatorSlave.set(0);
+
   }
   public void lowerElevator() {
     setpoint = 0;
-    elevatorMaster.set(-.01);
+    elevatorMaster.set(-.2);
+    elevatorSlave.set(.2);
+
 
   }
 
