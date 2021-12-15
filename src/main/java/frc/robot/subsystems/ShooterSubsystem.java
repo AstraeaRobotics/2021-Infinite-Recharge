@@ -68,7 +68,7 @@ public class ShooterSubsystem extends SubsystemBase {
     double speed = Constants.shooterConstants.multiplier * Constants.shooterConstants.maxRPM;
 
     topPidController.setReference(speed, ControlType.kVelocity);
-    bottomPidController.setReference(-speed, ControlType.kVelocity); // negative b/c reverse
+    bottomPidController.setReference(speed, ControlType.kVelocity); // negative b/c reverse
   }
 
   public void setSpeed(double speed) {

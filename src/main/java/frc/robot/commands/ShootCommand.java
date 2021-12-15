@@ -26,6 +26,8 @@ public class ShootCommand extends CommandBase {
    @Override
   public void execute() {
     RobotContainer.m_ShooterSubsystem.shoot();
+   //RobotContainer.m_ShooterSubsystem.setSpeed(.2);
+    
   }
 
   @Override

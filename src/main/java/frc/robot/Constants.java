@@ -35,6 +35,6 @@ public class Constants {
     public static double smallAngleThreshold = 1.0;
   }
   
-  public static final double intakeSpeed = .8;
+  public static final double intakeSpeed = .6;
   public static final double indexerSpeed = .2;
 }

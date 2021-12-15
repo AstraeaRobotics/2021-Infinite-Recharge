@@ -18,7 +18,7 @@ public class Intake extends SubsystemBase {
   
   private VictorSPX leftMotor;
   private CANSparkMax rightMotor;
-  
+
   /** Creates a new Intake. */
   public Intake() {
     leftMotor = new VictorSPX(RobotMap.INTAKE_MOTOR_LEFT);
@@ -26,7 +26,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void intakeBall() {
-    rightMotor.set(-.08);
+    rightMotor.set(-.14);
     System.out.println("MOTOR");
     System.out.println(rightMotor.getEncoder().getPosition());
     leftMotor.set(ControlMode.PercentOutput, -Constants.intakeSpeed);

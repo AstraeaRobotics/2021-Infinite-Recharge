@@ -63,7 +63,7 @@ public class RobotContainer {
   Button shootButton = new JoystickButton(operatorGamepad, RobotMap.SHOOT_BUTTON);
   Button autoaimButton = new JoystickButton(operatorGamepad, RobotMap.AUTOAIM_BUTTON);
   Button intakeButton = new JoystickButton(operatorGamepad, RobotMap.INTAKE_BUTTON);
-
+  
   public RobotContainer() {
     m_limelight.setLED("off");
     SmartDashboard.putBoolean("TURNING ON LED", false);
@@ -83,6 +83,7 @@ public class RobotContainer {
     shootButton.whileHeld(new FeedShoot());
     intakeButton.whileHeld(new IntakeBall());
     autoaimButton.whileHeld(new Aimbot());
+    autoaimButton.whenReleased(() -> m_limelight.setLED("off"));
   }
 
   public Command getAutonomousCommand() {
