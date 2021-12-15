@@ -11,6 +11,7 @@ import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Constants;
+import org.photonvision.PhotonCamera;
 
 public class Limelight extends SubsystemBase {
 
@@ -18,19 +19,28 @@ public class Limelight extends SubsystemBase {
 
 	NetworkTable table;
 
+	PhotonCamera camera = new PhotonCamera("photonvision");
+
 	/**
 	 * Constructs a new Limelight Object with network table name (to connect to the
 	 * correct limelight). Default is "limelight"
 	 */
 
 	public Limelight(String networkTableName) {
-
 		this.networkTableName = networkTableName;
 
 		table = NetworkTableInstance.getDefault().getTable(this.networkTableName);
 
 		SmartDashboard.putNumber("Limelight object contructed", table.getEntry("tl").getDouble(0));
 
+	}
+
+	@Override
+	public void periodic() {
+		// TODO Auto-generated method stub
+		super.periodic();
+
+		var result = camera.getLatestResult();
 	}
 
 	// set pipeline number (0-9 configured on limelight web dashboard)
