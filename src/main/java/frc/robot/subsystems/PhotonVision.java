@@ -1,0 +1,149 @@
+/* __    __  _  _  ____  __    __  ___  _  _  ____ 
+(  )  (  )( \/ )(  __)(  )  (  )/ __)/ )( \(_  _)
+/ (_/\ )( / \/ \ ) _) / (_/\ )(( (_ \) __ (  )(  
+\____/(__)\_)(_/(____)\____/(__)\___/\_)(_/ (__) */
+
+package frc.robot.subsystems;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import edu.wpi.first.networktables.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import frc.robot.Constants;
+import org.photonvision.PhotonCamera;
+
+public class PhotonVision extends SubsystemBase {
+
+	private String networkTableName;
+
+	NetworkTable table;
+
+	PhotonCamera camera = new PhotonCamera(networkTableName);
+
+	/**
+	 * Constructs a new PhotonVision Object with network table name (to connect to the
+	 * correct camera). Default is "photonvision"
+	 */
+
+	public PhotonVision(String networkTableName) {
+		this.networkTableName = networkTableName;
+
+		table = NetworkTableInstance.getDefault().getTable(this.networkTableName);
+
+		SmartDashboard.putNumber("PhotonVision object contructed", table.getEntry("tl").getDouble(0));
+
+	}
+
+	// set pipeline number (0-9 configured on limelight web dashboard)
+	public void setPipeline(int pipelinenumber) throws IllegalArgumentException {
+
+		if (pipelinenumber > 9 || pipelinenumber < 0) {
+			throw new IllegalArgumentException();
+		}
+
+		table.getEntry("pipeline").setNumber(pipelinenumber);
+
+	}
+
+	// set limelight LED to on off or blink
+	public void setLED(String status) throws IllegalArgumentException {
+
+		if (status.equalsIgnoreCase("on")) {
+			table.getEntry("ledMode").setNumber(1);
+		}
+
+		else if (status.equalsIgnoreCase("off")) {
+			table.getEntry("ledMode").setNumber(0);
+		}
+
+		else if (status.equalsIgnoreCase("blink")) {
+			table.getEntry("ledMode").setNumber(2);
+		}
+
+		else {
+			throw new IllegalArgumentException();
+		}
+
+	}
+
+	// set limelight camera to driver only mode (increases exposure turns off vision
+	// processing) (true or false)
+	public void driverOnlyMode(boolean drivermode) {
+
+		table.getEntry("driverMode").setBoolean(drivermode);
+
+	}
+
+	// take a snapshot, can be viewed later from the limelight web dashboard
+	public void takeSnapshot() {
+
+		table.getEntry("inputSaveImgCmd").setBoolean(true);
+		table.getEntry("inputSaveImgCmd").setBoolean(false);
+
+	}
+
+	// Whether the limelight has any valid targets
+	public boolean hasTarget() {
+
+		return table.getEntry("hasTarget").getBoolean(false);
+
+	}
+
+	// this is wrong vvv FIXME
+	// Horizontal Offset From Crosshair To Target (LL1: -27 degrees to 27 degrees |
+	// LL2: -29.8 to 29.8 degrees)
+	public double getHorizontalOffset() {
+		return table.getEntry("targetYaw").getDouble(0);
+	}
+	
+	// this is wrong vvv FIXME
+	// Vertical Offset From Crosshair To Target (LL1: -20.5 degrees to 20.5 degrees
+	// | LL2: -24.85 to 24.85 degrees)
+	public double getVerticalOffset() {
+		return table.getEntry("targetPitch").getDouble(0);
+	}
+
+	// Target Area (0% of image to 100% of image)
+	public double getTargetArea() {
+		return table.getEntry("targetArea").getDouble(0);
+	}
+
+	// Skew or rotation (-90 degrees to 0 degrees)
+	public double getSkew() {
+		return table.getEntry("targetSkew").getDouble(0);
+	}
+
+	// The pipeline’s latency contribution (ms) Add at least 11ms for image capture
+	// latency.
+	public double getLatency() {
+		return table.getEntry("latencyMillis").getDouble(0);
+	}
+
+	// does not exist in photonvision
+	// Gets the number of corners the limelight detects (WIP)
+	public double getNumOfCorners() {
+		// return
+		// NetworkTableInstance.getDefault().getTable(networktablename).getEntry("tcornx").getDoubleArray().length();
+		return 4;
+	}
+
+	// does not exist in photonvision
+	// Vertical sidelength of the rough bounding box (0 - 320 pixels)
+	public double getVerticalSidelength() {
+		// return table.getEntry("tvert").getDouble(0);
+		return 0;
+	}
+	
+	// does not exist in photonvision
+	// Horizontal sidelength of the rough bounding box (0 - 320 pixels)
+	public double getHorizontalSideLength() {
+		// return table.getEntry("thor").getDouble(0);
+		return 0;
+	}
+
+	public double getDistance() {
+		return (Constants.visionConstants.h_goal - Constants.visionConstants.h_limeyboy) / Math.tan(Math.toRadians(Constants.visionConstants.shooter_Angle + getVerticalOffset()));
+	}
+
+}

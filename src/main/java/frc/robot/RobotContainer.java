@@ -43,7 +43,7 @@ public class RobotContainer {
    * Subsystems
    */
 
-  public final static Limelight m_limelight = new Limelight("limelight");
+  public final static PhotonVision m_limelight = new PhotonVision("limelight");
   public final static DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   public final static ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
   public final static Intake m_IntakeSubsystem = new Intake();

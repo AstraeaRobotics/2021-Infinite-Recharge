@@ -29,7 +29,7 @@ public class Constants {
 
   public static class visionConstants {
     public static double h_goal = 13; // Height of the goal in inches
-		public static double h_limeyboy = 5;
+		public static double h_limeyboy = 5; // height of the limelight off the ground in inches???
 		public static double shooter_Angle = 12.5; // fixed shooter angle. TODO: experimentally determine this
     public static double largeAngleThreshold = 10.0;
     public static double smallAngleThreshold = 1.0;
