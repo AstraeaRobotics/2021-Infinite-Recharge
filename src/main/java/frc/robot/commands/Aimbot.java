@@ -38,8 +38,8 @@ public class Aimbot extends CommandBase {
 			SmartDashboard.putBoolean("TURNING ON LED", true);
 		}
 		// PID VALUES (MUST BE TUNED)
-		final double kPx = -.02f;
-		final double kPy = -.1f;
+		final double kPx = -.01f;
+		final double kPy = -.11f;
 		// minimum value to actually make the robot turn (at smaller values it may not
 		// turn due to friction)
 		final double feedforward = .16f;
